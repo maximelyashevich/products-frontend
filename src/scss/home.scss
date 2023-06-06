@@ -24,8 +24,27 @@
     }
     &__img {
         display: flex;
-        margin: 0 auto;
+        margin: 10px auto;
         max-width: 100%;
         height: 300px;
     }
+
+    &__description {
+        display: flex;
+        align-items: center;
+    }
+
+    &__price {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    &__title {
+        display: flex;
+        justify-content: center;
+    }
+
 }

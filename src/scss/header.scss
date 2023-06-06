@@ -27,6 +27,28 @@
       cursor: pointer;
    }
 
+   &__user {
+      display: flex;
+      column-gap: 20px;
+      align-items: center;
+
+      button {
+         padding: 12px 20px;
+         border-radius: 10px;
+         border: none;
+         color: white;
+         background: rgb(18, 95, 171);
+         cursor: pointer;
+      }
+
+      &__cash{
+         display: flex;
+         position: relative;
+         right: 25%;
+         column-gap: 10px;
+      }
+   }
+
    &__bottom {
       padding: 40px 0;
 

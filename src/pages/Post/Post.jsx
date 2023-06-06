@@ -13,7 +13,6 @@ const Post = () => {
     })
   },[])
 
-
   return (
     <div className='product'>
       <div className='container'>

@@ -13,7 +13,7 @@ const Home = () => {
     })
   }, [])
 
-  console.log(products)
+  //console.log(products)
 
   return (
     <div className='home'>
@@ -24,9 +24,9 @@ const Home = () => {
             <div className='home__card' key={item.id}>
               <Link to={`product/${item.id}`}> 
               <img className='home__img' src={item.img} alt="" />
-               <h2>{item.title}</h2>
-               <p>{item.description}</p>
-               <span>{item.price} $</span>
+               <h2 className='home__title'>{item.title}</h2>
+               <p className='home__description'>{item.description}</p>
+               <span className='home__price'>{item.price} $</span>
               </Link>
             </div>             
           ))

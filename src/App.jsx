@@ -13,8 +13,8 @@ function App() {
   const [user, setUser] = useState({})
 
   useEffect(()=>{
-    if (JSON.parse(localStorage.getItem(user)) !== null) {
-      setUser(JSON.parse(localStorage.getItem(user)))
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      setUser(JSON.parse(localStorage.getItem('user')))
     }
   }, [])
 

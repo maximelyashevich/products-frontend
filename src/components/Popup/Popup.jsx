@@ -20,7 +20,8 @@ const Popup = ({ popup, setPopup, user, setUser }) => {
      await instance.post("/registration", {
       email: email,
       name: name,
-      password: psw 
+      password: psw,
+      balance: 1000 
     }).then((res) => {
       setUser(res.data.user)
       setPopup(false)
