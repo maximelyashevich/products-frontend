@@ -7,6 +7,7 @@
   left: 0;
   background: #00000090;
   display: none;
+
   &_active {
     display: block;
   }
@@ -23,6 +24,7 @@
   background: #fff;
   border-radius: 10px;
   padding: 50px 50px;
+
   &__form-top {
     display: flex;
     justify-content: center;
@@ -30,15 +32,18 @@
     column-gap: 50px;
     padding-bottom: 50px;
   }
+
   &__title {
     cursor: pointer;
     font-size: 25px;
+
     &_active {
       color: rgb(18, 95, 171);
       text-decoration: underline 1px;
       text-underline-offset: 5px;
     }
   }
+
   &__input {
     margin-top: 20px;
     width: 100%;
@@ -49,6 +54,7 @@
     border-radius: 10px;
     padding-left: 20px;
   }
+
   &__btn {
     cursor: pointer;
     width: 30%;
@@ -63,5 +69,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &__errors{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-error{
+      color: red;
+      margin-bottom: 5px;
+    }
   }
 }

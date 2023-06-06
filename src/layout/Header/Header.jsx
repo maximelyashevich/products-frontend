@@ -8,6 +8,7 @@ const Header = ({ user, setUser }) => {
   const [popup, setPopup] = useState(false)
 
   const logOutUser = () => {
+    localStorage.removeItem("token")
     localStorage.removeItem("user")
     setUser({})
   }
@@ -39,7 +40,7 @@ const Header = ({ user, setUser }) => {
           </div>
         </nav>
       </div>
-      {popup && <Popup popup={popup} setPopup={setPopup} user={user} setUser={setUser} />}
+      {popup && <Popup popup={popup} setPopup={setPopup} setUser={setUser} />}
       <div>
         <div className="container">
           <div className="header__bottom-search">

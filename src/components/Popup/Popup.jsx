@@ -1,55 +1,62 @@
 import React, { useState } from "react";
 import instance from '../../axios'
+import { useForm } from "react-hook-form";
 
 
-const Popup = ({ popup, setPopup, user, setUser }) => {
+const Popup = ({ popup, setPopup, setUser }) => {
   const [status, setStatus] = useState("signIn");
-  const [name, setName] = useState('')
-  const[psw, setPsw] = useState('')
-  const[email, setEmail] = useState('')
+
+  const {
+    handleSubmit,
+    register,
+    reset, formState: {
+      errors
+    }
+  } = useForm()
 
   const popupClose = (e) => {
-    if(e.target.classList.contains('overlay')) {
-        setPopup(false)
+    if (e.target.classList.contains('overlay')) {
+      setPopup(false)
     } else {
-        setPopup(true)
+      setPopup(true)
     }
   }
 
-  const signUpHandler = async () => {
-     await instance.post("/registration", {
-      email: email,
-      name: name,
-      password: psw,
-      balance: 1000 
+  const signUpHandler = async (data) => {
+    await instance.post("/registration", {
+      ...data,
+      balance: 1000
     }).then((res) => {
       setUser(res.data.user)
       setPopup(false)
-      setEmail('')
-      setName('')
-      setPsw('')
+      localStorage.setItem('token'. JSON.stringify(res.data.access_token))
       localStorage.setItem('user', JSON.stringify(res.data.user))
     }).catch(err => alert(err))
   }
 
-  const signInHandler = async () => {
-     await instance.post("/login", {
-      email: email,
-      password: psw 
-    }).then((res) => {
+  const signInHandler = async (data) => {
+    await instance.post("/login", data).then((res) => {
       setUser(res.data.user)
       setPopup(false)
-      setEmail('')
-      setName('')
-      setPsw('')
+      localStorage.setItem('token'. JSON.stringify(res.data.access_token))
       localStorage.setItem('user', JSON.stringify(res.data.user))
     }).catch(err => alert(err))
+  }
+
+  const submitForm = (data) => {
+    if (status === 'signIn') {
+      signInHandler(data)
+    } else {
+      signUpHandler(data)
+    }
+    reset
   }
 
   return (
     <div onClick={(e) => popupClose(e)} className={`overlay ${popup && "overlay_active"}`}>
       <div className="popup">
-        <form action="" className="popup__form">     
+
+        <form noValidate onSubmit={handleSubmit(submitForm)} action="" className="popup__form">
           <div className="popup__form-top">
             <h2 onClick={() => setStatus("signIn")} className={`popup__title ${status === "signIn" && "popup__title_active"}`}>
               Войти
@@ -57,24 +64,45 @@ const Popup = ({ popup, setPopup, user, setUser }) => {
             <h2 onClick={() => setStatus("signUp")} className={`popup__title ${status === "signUp" && "popup__title_active"}`}>
               Регистрация
             </h2>
-         
-          </div>         
-          <input className="popup__input" type="email" placeholder="email" onChange={e => setEmail(e.target.value)}/>
-          {
-          status === "signUp" && <input className="popup__input" type="text" placeholder="name"  onChange={e => setName(e.target.value)}/>
-          }
-          <input className="popup__input" type="password" placeholder="password" onChange={e => setPsw(e.target.value)}/>
-          <div className="popup__btn" type="submit" onClick={() => {
-              if (status === 'signIn'){
-                signInHandler()
-              } else {
-                signUpHandler()
-              }
-          }}>
-            {
-            status === "signIn" ? <p>Войти</p> : <p>Регистрация</p>
-            }
+
           </div>
+          <input {...register("email", {
+            required: {
+              message: "Почта не может быть пустой!",
+              value: true,
+            },
+            minLength: {
+              message: "Минимальная длина почты 10!",
+              value: 10,
+            },
+            pattern: {
+              message: "Проверьте почту!",
+              value: /^[^ ]+@[^ ]+\.[a-z]{2,5}$/,
+            },
+          })} className="popup__input" type="email" placeholder="email" />
+          {
+            status === "signUp" && <input {...register("name")} className="popup__input" type="text" placeholder="name" />
+          }
+          <input {...register("password", {
+            required: {
+              message: "Пароль не может быть пустым!",
+              value: true,
+            },
+            minLength: {
+              message: "Минимальная длина пароля 5!",
+              value: 5,
+            },
+          })} className="popup__input" type="password" placeholder="password" />
+          <div className="popup__errors">
+            <p className="popup__errors-error">
+              {errors.email ? errors.email.message : errors.password?.message}
+            </p>
+          </div>
+          <button className="popup__btn" type="submit">
+            {
+              status === "signIn" ? <p>Войти</p> : <p>Регистрация</p>
+            }
+          </button>
         </form>
       </div>
     </div>
