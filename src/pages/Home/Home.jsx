@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import instance from '../../axios'
+import React, { useEffect, useState, useContext } from 'react'
+import { CustomContext } from '../../context'
 import { Link } from 'react-router-dom'
 
 const Home = () => {
 
-  const [products, setProducts] = useState([])
+  const {products, fetchProducts} = useContext(CustomContext)
 
   useEffect(()=>{
-    instance.get('posts')
-    .then((res) => {
-      setProducts(res.data)
-    })
+    fetchProducts()
   }, [])
 
-  //console.log(products)
 
   return (
     <div className='home'>

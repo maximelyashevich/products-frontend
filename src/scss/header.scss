@@ -30,7 +30,7 @@
    &__user {
       display: flex;
       column-gap: 20px;
-      align-items: center;
+      align-items: baseline;
 
       button {
          padding: 12px 20px;
@@ -84,6 +84,7 @@
          bottom: 0;
          font-size: 25px;
          height: 40px;
+         margin: 0;
          padding: 7px 10px;
          color: rgb(18, 95, 171);
          border: none;
@@ -96,16 +97,8 @@
    &__btn {
       cursor: pointer;
       padding: 12px 30px;
-      background: rgb(18, 95, 171);
-      border-radius: 10px;
       border: none;
       color: white;
-      display: flex;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
    }
 
 }

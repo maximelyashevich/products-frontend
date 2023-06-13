@@ -6,22 +6,20 @@ import AddPost from './pages/AddPost/AddPost'
 import AnotherAccount from './pages/AnotherAccount/AnotherAccount'
 import Header from './layout/Header/Header' 
 import './scss/style.scss'
-import { useEffect, useState } from "react"
+import { CustomContext } from "./context"
+import { useEffect, useState, useContext } from "react"
 
 function App() {
 
-  const [user, setUser] = useState({})
-
+  const {setUserFromLS} = useContext(CustomContext)
   useEffect(()=>{
-    if (JSON.parse(localStorage.getItem('user')) !== null) {
-      setUser(JSON.parse(localStorage.getItem('user')))
-    }
+    setUserFromLS()
   }, [])
 
   return (
     <>
       <div className="app">
-        <Header user={user} setUser={setUser}/>
+        <Header />
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/account" element={<MyAccount/>}/>

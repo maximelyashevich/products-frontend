@@ -1,0 +1,17 @@
+.comment {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: $form;
+    border-radius: 10px;
+    border: 1px solid #c3c3c3;
+
+    &_title {
+        display: flex;
+        justify-content: center;
+    }
+    &_author {
+        margin-top: 5px;
+        color: #111;
+        font-weight: bold;
+    }
+}

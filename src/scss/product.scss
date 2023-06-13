@@ -1,6 +1,11 @@
 .product {
+    background-color: $bg-color;
+    -webkit-box-shadow: 0px 20px 47px -3px rgba(34, 60, 80, 0.2);
     padding: 50px 0;
-    &__content{
+    border-radius: 10px;
+    margin: 20px 10px;
+
+    &__content {
         display: flex;
         column-gap: 100px;
         align-items: center;
@@ -8,26 +13,44 @@
         &__left {
             width: 40%;
         }
-        &-img{
+
+        &-img {
             width: 100%;
         }
+
         &-title {
             font-size: 30px;
         }
+
         &-description {
             font-size: 25px;
             margin: 20px 0;
         }
+
         &-price {
+            margin-bottom: 20px;
             font-size: 25px;
         }
+
+        &__comment {
+            &-title{
+                margin-top: 10px;
+            }
+            
+        }
+        &__btn {
+            padding: 10px 15px;
+            margin-top: 15px;
+        }
     }
+
     &__nav {
         display: flex;
         column-gap: 5px;
         font-size: 20px;
         color: #444;
         margin-bottom: 30px;
+
         p {
             color: #222;
         }

@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import instance from '../../axios'
+import { CustomContext } from '../../context'
+import { Comment } from '../../components/Comment/Comment'
+import { CommentPopup} from '../../components/Comment/CommentPopup'
 
 const Post = () => {
 
   const params = useParams()
-  const [product, setProduct] = useState({})
+  const [popup, setPopup] = useState(false)
+  const {product, fetchProductComment, comments, user} = useContext(CustomContext)
 
-  useEffect(()=>{
-    instance.get(`/post/${params.id}`).then((res) => {
-      setProduct(res.data)
-    })
+  useEffect(() => {
+    fetchProductComment(params.id)
   },[])
+
+  console.log(comments[0])
 
   return (
     <div className='product'>
@@ -26,9 +29,24 @@ const Post = () => {
           <div className='product__content__right'>
             <h2 className='product__content-title'>{product.title}</h2>
             <p className='product__content-description'>{product.description}</p>
-            <p className='product__content-price'>{product.price} $</p>
-          </div>
+            <p className='product__content-price'>{product.price} $</p> 
+            <hr />
+            <h3 className='product__content__comment-title'>Отзывы</h3>
+              {comments[0] ? <>{comments.map(item => {
+                return(
+                  <div>
+                    <Comment title={item.title} text={item.text} author={item.author}/>
+                  </div>
+  
+                )
+              })}</> : <>Пусто</>} 
+              {
+                user.email ?  <button onClick={()=>setPopup(true)} className='product__content__btn' type="button">Оставить отзыв</button> : <p style={{"justify-content":"space-around",display: "flex", margin:"10px auto", color:"red"}}>Войдите в аккаунт, чтобы оставить отзыв</p>
+              }   
+              {popup && <CommentPopup popup={popup} setPopup={setPopup}/>}
+          </div> 
         </div>
+       
       </div>
     </div>
   )

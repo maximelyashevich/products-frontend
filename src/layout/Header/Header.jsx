@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { CustomContext } from '../../context'
 import Popup from '../../components/Popup/Popup'
 import { BsSearch } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
-const Header = ({ user, setUser }) => {
+const Header = () => {
 
   const [popup, setPopup] = useState(false)
+  const {user, setUser} = useContext(CustomContext)
 
   const logOutUser = () => {
     localStorage.removeItem("token")
@@ -32,15 +34,15 @@ const Header = ({ user, setUser }) => {
                     </div>
                     <p>{user.name}</p>
                     <button onClick={() => logOutUser()} type="button">Выйти</button>
+                    <Link to="/add-post"><button type='button' className='header__btn'>Создать пост</button></Link>
                   </div>
                 </div> :
                 <p className='header__login' onClick={() => setPopup(true)}>Войти - Регистрация</p>
             }
-            <button type='button' className='header__btn'>Создать пост</button>
           </div>
         </nav>
       </div>
-      {popup && <Popup popup={popup} setPopup={setPopup} setUser={setUser} />}
+      {popup && <Popup popup={popup} setPopup={setPopup} />}
       <div>
         <div className="container">
           <div className="header__bottom-search">

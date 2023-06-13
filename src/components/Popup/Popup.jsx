@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { CustomContext } from "../../context";
 import instance from '../../axios'
 import { useForm } from "react-hook-form";
 
 
-const Popup = ({ popup, setPopup, setUser }) => {
+const Popup = ({ popup, setPopup }) => {
   const [status, setStatus] = useState("signIn");
+  const {setUser} = useContext(CustomContext)
 
   const {
     handleSubmit,
@@ -29,7 +31,7 @@ const Popup = ({ popup, setPopup, setUser }) => {
     }).then((res) => {
       setUser(res.data.user)
       setPopup(false)
-      localStorage.setItem('token'. JSON.stringify(res.data.access_token))
+      localStorage.setItem('token', JSON.stringify(res.data.access_token))
       localStorage.setItem('user', JSON.stringify(res.data.user))
     }).catch(err => alert(err))
   }
@@ -38,7 +40,7 @@ const Popup = ({ popup, setPopup, setUser }) => {
     await instance.post("/login", data).then((res) => {
       setUser(res.data.user)
       setPopup(false)
-      localStorage.setItem('token'. JSON.stringify(res.data.access_token))
+      localStorage.setItem('token', JSON.stringify(res.data.access_token))
       localStorage.setItem('user', JSON.stringify(res.data.user))
     }).catch(err => alert(err))
   }
