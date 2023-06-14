@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 const Popup = ({ popup, setPopup }) => {
   const [status, setStatus] = useState("signIn");
-  const {setUser} = useContext(CustomContext)
+  const {setUser, signInHandler, signUpHandler} = useContext(CustomContext)
 
   const {
     handleSubmit,
@@ -24,34 +24,14 @@ const Popup = ({ popup, setPopup }) => {
     }
   }
 
-  const signUpHandler = async (data) => {
-    await instance.post("/registration", {
-      ...data,
-      balance: 1000
-    }).then((res) => {
-      setUser(res.data.user)
-      setPopup(false)
-      localStorage.setItem('token', JSON.stringify(res.data.access_token))
-      localStorage.setItem('user', JSON.stringify(res.data.user))
-    }).catch(err => alert(err))
-  }
-
-  const signInHandler = async (data) => {
-    await instance.post("/login", data).then((res) => {
-      setUser(res.data.user)
-      setPopup(false)
-      localStorage.setItem('token', JSON.stringify(res.data.access_token))
-      localStorage.setItem('user', JSON.stringify(res.data.user))
-    }).catch(err => alert(err))
-  }
-
   const submitForm = (data) => {
     if (status === 'signIn') {
       signInHandler(data)
     } else {
       signUpHandler(data)
     }
-    reset
+    setPopup(false)
+    reset()
   }
 
   return (

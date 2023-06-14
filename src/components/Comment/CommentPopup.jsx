@@ -5,7 +5,7 @@ import { CustomContext } from '../../context'
 
 export const CommentPopup = ({ popup, setPopup }) => {
 
-  const {product} = useContext(CustomContext)
+  const {product, fetchComment} = useContext(CustomContext)
 
 
   const popupClose = (e) => {
@@ -24,18 +24,12 @@ export const CommentPopup = ({ popup, setPopup }) => {
     }
   } = useForm()
 
-  const fetchComment = async (data) => {
-    instance.post("/post/comment",{...data, product: product.id}, {
-      headers: {
-        "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`
-      }
-    }).catch(err => alert(err))
-  }
+ 
 
   const submitForm = (data) => {
-    fetchComment(data)
+    fetchComment(data, product)
     location.reload()
-    reset
+    reset()
   }
 
   return (
