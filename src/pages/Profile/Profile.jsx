@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { NavLink, Link, Route, Routes, useLocation } from 'react-router-dom'
 import { Posts } from './Posts'
 import { Settings } from './Settings'
 import { Balance } from './Balance'
-import { CustomContext } from '../../context'
 
 
 const Profile = () => {
@@ -18,7 +17,6 @@ const Profile = () => {
                     <NavLink to="/profile/settings"><p className='profile__link_item'>Настройки профиля</p></NavLink>
                     <NavLink to="/profile/balance"><p className='profile__link_item'>Баланс</p></NavLink>
                 </div>
-
                 <div className="profile__crumbs">
                     <Link to="/">Главная</Link> - <p>Профиль</p> - <p>
                         {
@@ -28,7 +26,6 @@ const Profile = () => {
                         }
                     </p>
                 </div>
-
                 <>
                     <Routes>
                         <Route path="/my-posts" element={<Posts />} />
@@ -36,9 +33,7 @@ const Profile = () => {
                         <Route path="/balance" element={<Balance />} />
                     </Routes>
                 </>
-
             </div>
-
         </div>
     )
 }

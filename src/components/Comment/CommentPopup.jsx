@@ -5,7 +5,7 @@ import { CustomContext } from '../../context'
 
 export const CommentPopup = ({ popup, setPopup }) => {
 
-  const {product, fetchComment} = useContext(CustomContext)
+  const {product, fetchComment, commentLoading} = useContext(CustomContext)
 
 
   const popupClose = (e) => {

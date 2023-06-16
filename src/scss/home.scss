@@ -4,35 +4,54 @@
     padding: 50px 0;
     border-radius: 10px;
     margin: 20px 10px;
+
     &__content {
         display: flex;
         column-gap: 20px;
         column-count: 4;
         flex-wrap: wrap;
     }
+
     &__card {
-        width: calc(25% - (60px / 4));  
+        width: 285px;
         -webkit-box-shadow: 0px 0px 19px -7px rgba(34, 60, 80, 0.2);
         margin-bottom: 20px;
         border: 1px solid #e3e3e3;
         border-radius: 20px;
         padding: 10px;
+        height: 600px;
         transition: all .2s ease;
+        position: relative;
+
         &:hover {
             transform: translateY(5px);
         }
     }
+
     &__img {
         display: flex;
-       // margin: 10px auto;
-        max-width: 100%;
+        margin: 10px auto;
+        max-width: 270px;
         height: 300px;
     }
 
-    &__description {
-        display: flex;
-        align-items: center;
+    .item {
+        &__description {
+            margin-top: 10px;
+            cursor: pointer;
+            user-select: none;
+            width: 275px;
+            height: 100px;
+            overflow: hidden;
+
+            &__active {
+                cursor: pointer;
+                user-select: none;
+                height: auto;
+            }
+        }
     }
+
 
     &__price {
         display: flex;
