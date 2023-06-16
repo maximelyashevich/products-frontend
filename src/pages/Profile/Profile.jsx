@@ -9,7 +9,6 @@ import { CustomContext } from '../../context'
 const Profile = () => {
 
     const location = useLocation()
-    const { user } = useContext(CustomContext)
 
     return (
         <div className='profile'>

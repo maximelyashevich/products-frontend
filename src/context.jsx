@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createContext } from "react";
 import instance from "./axios";
 
+
 export const CustomContext = createContext()
 
 export const Context = (props) => {
@@ -9,11 +10,15 @@ export const Context = (props) => {
   const [products, setProducts] = useState([])
   const [product, setProduct] = useState({})
   const [userComment, setUserComment] = useState({})
+  const [anotherUser, setAnotherUser] = useState({})
 
   const [comments, setComments] = useState([])
 
-  const fetchProducts = () => {
-    instance.get('posts?limit=8&page=1')
+  console.log(user.id)
+
+  const fetchProducts = async () => {
+    console.log(user.id)
+    await instance.get(`/post/get_me?limit=15&page=0&not_me=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : 0}`)
       .then((res) => {
         setProducts(res.data)
       }).catch(err => alert(err))
@@ -25,30 +30,35 @@ export const Context = (props) => {
     }
   }
 
-  const fetchProductComment = (id) => {
-    instance.get(`/post/${id}`).then((res) => {
+  const fetchAnotherUser = async (id) => {
+    await instance.get(`/user/${id}`).then((res) =>
+      setAnotherUser(res.data)).catch(err => console.log(err))
+  }
+
+  const fetchProductComment = async (id) => {
+    await instance.get(`/post/${id}`).then((res) => {
       setProduct(res.data)
     }).catch(err => alert(err))
-    instance.get(`/post/comment/${id}`).then((res) => {
+    await instance.get(`/post/comment/${id}`).then((res) => {
       setComments(res.data)
     }).catch(err => alert(err))
   }
 
-  const fetchUserComment = (id) => {
-    instance.get(`/user/${id}`).then((res) => {
+  const fetchUserComment = async (id) => {
+    await instance.get(`/user/${id}`).then((res) => {
       setUserComment(res.data)
     }).catch(err => alert(err))
   }
 
-  const fetchPutUser = (d) => {
-    console.log(d)
-    instance.put(`/user/update`, d, {
+  const fetchPutUser = async (d) => {
+    await instance.put(`/user/update`, d, {
       headers: {
         "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
       }
     }).then((res) => {
       console.log(res.data)
       localStorage.removeItem("user")
+      setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
     }).catch(err => alert(err))
   }
@@ -84,7 +94,7 @@ export const Context = (props) => {
   }
 
   const fetchRefresh = async () => {
-    await instance.post("/refresh", {access_token: JSON.parse(localStorage.getItem("token"))}, {
+    await instance.post("/refresh", { access_token: JSON.parse(localStorage.getItem("token")) }, {
       headers: {
         "Authorization": `Bearer ${JSON.parse(localStorage.getItem("refresh"))}`
       }
@@ -110,7 +120,8 @@ export const Context = (props) => {
     fetchPutUser,
     fetchComment,
     signUpHandler,
-    signInHandler, fetchRefresh
+    signInHandler, fetchRefresh,
+    fetchAnotherUser, anotherUser
   }
   return <CustomContext.Provider value={value}>
     {

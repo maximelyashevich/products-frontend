@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Geologica:wght@600&family=Montserrat:wght@400;600;700&display=swap');
 
-$bg-color: #fefefe;
+$bg-color: #fefefedc;
 $form: #fcfcfc;
 $select-color: #fff;
 $select-background: rgb(18, 95, 171);
@@ -19,6 +19,10 @@ $select-height: 40px;
     }
 }
 
+body {
+    background: url('../assets/bg.jpg');
+}
+
 button {
     cursor: pointer;
     background: rgb(18, 95, 171);
@@ -31,6 +35,32 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.form {
+    &__input {
+        display: flex;
+        margin: 0 auto;
+        margin-top: 20px;
+        width: 80%;
+        height: 40px;
+        margin-bottom: 20px;
+        outline: none;
+        border: 0.1px solid #111;
+        border-radius: 10px;
+        padding-left: 20px;
+    }
+}
+
+
+.errors {
+    &-error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: red;
+        margin-bottom: 5px;
+    }
 }
 
 h1,
@@ -59,3 +89,4 @@ a {
 @import 'comment';
 @import 'footer';
 @import 'profile';
+@import 'account';

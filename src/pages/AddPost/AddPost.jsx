@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import instance from '../../axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CustomContext } from '../../context'
 
 const AddPost = () => {
@@ -40,13 +40,18 @@ const AddPost = () => {
 
     <div className='add-post'>
       <div className="container">
+        <div className="profile__crumbs">
+          <Link to="/"><p>
+            Главная
+            </p></Link> <p> - Создать объявление</p>
+        </div>
         <form onSubmit={handleSubmit(submitForm)} className='form' action="">
           <div className="form__title">
             <h2>Создать объявление</h2>
           </div>
           <div className="input">
             <div>
-              <input {...register("title", {
+              <input className='form__input' style={{width: '80%'}} {...register("title", {
                 required: {
                   message: "Это поле не может быть пустым!",
                   value: true
@@ -56,10 +61,10 @@ const AddPost = () => {
                   value: 5,
                 }
               })} type="text" placeholder="Название" />
-              <div className='form__error'>{errors.title?.message}</div>
+              <p className='errors-error'>{errors.title?.message}</p>
             </div>
             <div>
-              <input {...register("description", {
+              <textarea style={{maxHeight: "300px", minHeight: "300px", minWidth: '80%', maxWidth: '80%'}} className='form__input' {...register("description", {
                 required: {
                   message: "Это поле не может быть пустым!",
                   value: true
@@ -70,25 +75,25 @@ const AddPost = () => {
                 }
               })} type="text" placeholder="Описание" />
             </div>
-            <div className='form__error'>{errors.description?.message}</div>
+            <p className='errors-error'>{errors.description?.message}</p>
             <div>
-              <input {...register("img", {
+              <input className='form__input' style={{width: '80%'}} {...register("img", {
                 required: {
                   message: "Это поле не может быть пустым!",
                   value: true
                 }
               })} type="text" placeholder="Изображение" />
             </div>
-            <div className='form__error'>{errors.img?.message}</div>
+            <p className='errors-error'>{errors.img?.message}</p>
             <div>
-              <input {...register("price", {
+              <input className='form__input' style={{width: '80%'}} {...register("price", {
                 required: {
                   message: "Это поле не может быть пустым!",
                   value: true
                 }
               })} type="number" placeholder="Цена" />
             </div>
-            <div className='form__error'>{errors.price?.message}</div>
+            <p className='errors-error'>{errors.price?.message}</p>
           </div>
           <div className='form__category'>
             <select {...register("category")}>
@@ -99,7 +104,6 @@ const AddPost = () => {
             </select>
           </div>
           {user.email ? <button type='submit'>Создать</button> : <p style={{"justify-content":"space-around",display: "flex", margin:"10px auto", color:"red"}}>Войдите в аккаунт, чтобы создать объявление</p>}
-          
         </form>
       </div>
     </div>

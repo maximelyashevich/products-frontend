@@ -49,7 +49,7 @@ export const CommentPopup = ({ popup, setPopup }) => {
               value: 5,
             },
           })} type="text" placeholder='Название' className='popup__input' />
-          <div className="error">
+          <div className="errors-error">
              {errors.title && errors.title?.message}
           </div>
           <textarea {...register("text", {
@@ -62,7 +62,7 @@ export const CommentPopup = ({ popup, setPopup }) => {
               value: 5,
             },
           })} style={{ padding: '10px' }} type="text" placeholder='Текст' className='popup__input' />
-           <div className="error">
+           <div className="errors-error">
              {errors.text && errors.text?.message}
           </div>
           <button className='popup__btn' type='submit'>Создать</button>

@@ -1,13 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { CustomContext } from '../../context'
-import { Link } from 'react-router-dom'
+
+import { Card } from '../../components/Card/Card'
 
 const Home = () => {
 
-  const {products, fetchProducts} = useContext(CustomContext)
+  const { products, fetchProducts, user } = useContext(CustomContext)
 
-  useEffect(()=>{
-    fetchProducts()
+  useEffect(() => {
+    fetchProducts(user.id)
   }, [])
 
 
@@ -15,21 +16,13 @@ const Home = () => {
     <div className='home'>
       <div className="container">
         <div className='home__content'>
-        {
-          products.map((item) => (
-            <div className='home__card' key={item.id}>
-              <Link to={`product/${item.id}`}> 
-              
-              <img className='home__img' src={item.img} alt="" />
-               <h2 className='home__title'>{item.title}</h2>
-               <p className='home__description'>{item.description}</p>
-               <span className='home__price'>{item.price} $</span>
-              </Link>
-            </div>             
-          ))
-        }
+          {
+            products.map((item) => (
+              <Card key={item.id} item={item} />
+            ))
+          }
+        </div>
       </div>
-      </div>     
     </div>
   )
 }

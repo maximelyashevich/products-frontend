@@ -76,7 +76,7 @@ const Popup = ({ popup, setPopup }) => {
             },
           })} className="popup__input" type="password" placeholder="password" />
           <div className="popup__errors">
-            <p className="popup__errors-error">
+            <p className="errors-error">
               {errors.email ? errors.email.message : errors.password?.message}
             </p>
           </div>
