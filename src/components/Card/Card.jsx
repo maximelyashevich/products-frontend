@@ -33,15 +33,17 @@ export const Card = ({ item, basket, heart }) => {
                             <LazyLoadImage alt='user' src={item.author.img} className='header__user_avatar' placeholderSrc='https://avatars.mds.yandex.net/i?id=b5d48f6503c4c16efcd372946a0b27169c58e895-7215189-images-thumbs&n=13' />
                         </Link>
                     }
+                    
+                        {basket}
+                    
                     {
-                        !user.email ? <></> : <div onClick={() => addToCart(item)}>
+                        location.pathname === '/' && <QuickView />
+                    }
+                    {
+                        !user.email ? '' : <div onClick={() => addToCart(item)}>
                             {heart}
                         </div>
                     }
-                    {
-                        location.pathname === '/' && <QuickView/>
-                    }
-                    {basket}
                 </div>
 
             </div>

@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { CustomContext } from "../../context";
-import instance from '../../axios'
 import { useForm } from "react-hook-form";
 
 
@@ -25,14 +24,16 @@ const Popup = ({ popup, setPopup }) => {
   }
 
   const submitForm = (data) => {
+
     if (status === 'signIn') {
-      signInHandler(data)
+      signInHandler(data)  
     } else {
       signUpHandler(data)
-    }
+      }
     setPopup(false)
     reset()
   }
+
 
   return (
     <div onClick={(e) => popupClose(e)} className={`overlay ${popup && "overlay_active"}`}>

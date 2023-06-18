@@ -1,21 +1,20 @@
 import React, { useState, useContext } from 'react'
 import { CustomContext } from '../../context'
 import Popup from '../../components/Popup/Popup'
-import { BsSearch } from 'react-icons/bs'
+import { BsSearch, BsBasket } from 'react-icons/bs'
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { GiShoppingCart } from 'react-icons/gi'
 import debounce from 'lodash.debounce';
 
 
 const Header = () => {
 
   const [popup, setPopup] = useState(false)
-  const { user, setUser, setFilter, filter, setCart } = useContext(CustomContext)
+  const { user, setUser, setFilter, filter, setCart, cart } = useContext(CustomContext)
   const location = useLocation()
   const navigate = useNavigate()
   const searchFunc = (e) => {
-    setFilter({...filter, q: e.target.value})
+    setFilter({ ...filter, q: e.target.value })
   }
 
   const debounceSearch = debounce(searchFunc, 300)
@@ -49,10 +48,13 @@ const Header = () => {
                     <div className="header__user__cash" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
                       <div className="header__user__cart">
                         {
-                          location.pathname !== '/cart'&& <Link to="/cart">
-                          <GiShoppingCart style={{ fontSize: '20px', cursor: 'pointer' }} />
-                        </Link>
-                        }        
+                          location.pathname !== '/cart' && <Link to="/cart">
+                            <div style={{display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                              <div>{cart.length}</div>
+                              <BsBasket style={{ fontSize: '20px', cursor: 'pointer' }} />
+                            </div>
+                          </Link>
+                        }
                       </div>
                       <p>Баланс: {user.balance}</p>
                     </div>
@@ -83,16 +85,16 @@ const Header = () => {
             </div>
             <div className="header__bottom-list">
               <div>
-                <label><p>Всё</p> <input defaultChecked onChange={(e) => setFilter({ ...filter, item: e.target.value, q:'' })} value={''} type='radio' name="filter" /></label>
+                <label><p>Всё</p> <input defaultChecked onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={''} type='radio' name="filter" /></label>
               </div>
               <div>
-                <label><p>Телефоны</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q:'' })} value={'phone'} type='radio' name="filter" /></label>
+                <label><p>Телефоны</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'phone'} type='radio' name="filter" /></label>
               </div>
               <div>
-                <label><p>Ноутбуки</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q:'' })} type='radio' value={'notebook'} name="filter" /></label>
+                <label><p>Ноутбуки</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} type='radio' value={'notebook'} name="filter" /></label>
               </div>
               <div>
-                <label><p>Часы</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q:'' })} value={'watch'} type='radio' name="filter" /></label>
+                <label><p>Часы</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'watch'} type='radio' name="filter" /></label>
               </div>
             </div>
             <div className="header__bottom_filters">

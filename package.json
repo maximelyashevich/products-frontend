@@ -14,16 +14,15 @@
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.1",
-    "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.3",
     "react-icons": "^4.9.0",
     "react-lazy-load-image-component": "^1.6.0",
     "react-router-dom": "^6.11.2",
     "sass": "^1.62.1",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "vite-plugin-compression": "^0.5.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^8.38.0",

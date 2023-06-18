@@ -1,7 +1,8 @@
 import React from 'react'
+import {IoEyeOutline} from 'react-icons/io5'
 
 export const QuickView = () => {
   return (
-    <div><p>Быстрый просмотр</p></div>
+    <div><IoEyeOutline style={{fontSize: '30px'}}/></div>
   )
 }

@@ -1,28 +1,42 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Card } from '../../components/Card/Card'
-import {TiDeleteOutline} from 'react-icons/ti'
+import { BsTrash } from 'react-icons/bs'
+import { CustomContext } from '../../context'
 
 export const Cart = () => {
 
-    let orders = JSON.parse(localStorage.getItem('cart'))
+    const { cart } = useContext(CustomContext)
+
+    const [orders, setOrders] = useState([])
+
+    useEffect(() => {
+        setOrders(cart)
+    }, [JSON.parse(localStorage.getItem('cart'))])
+
+    const { deleteFromCart } = useContext(CustomContext)
 
     return (
         <div className='cart'>
             <div className="container">
                 <div className="cart__clean">
-                    <button onClick={() => {
-                        localStorage.removeItem('cart')
-                        location.reload()
-                    }} type='button' style={{ padding: '10px 15px' }}>Очистить корзину</button>
+                    {
+                        orders.length !== 0 && <button onClick={() => {
+                            localStorage.removeItem('cart')
+                            location.reload()
+                        }} type='button' style={{ padding: '10px 15px' }}>Очистить корзину</button>
+                    }
                 </div>
                 <div className="cart__items">
-                    {orders ? orders.map(el =>
-                    (
-                        <Card item={el} key={el.id} basket={<TiDeleteOutline className='home__delete'/>} />
-                    )
-                    ) : <p>Пусто...</p>}
+                    {
+                        orders && orders.map(el =>
+                        (
+                            <Card item={el} key={el.id} basket={<BsTrash style={{float: 'right'}} onClick={() => deleteFromCart(el)} className='home__delete' />} />
+                        )
+                        )}
+                    {
+                        orders.length === 0 && <p>Пусто...</p>
+                    }
                 </div>
-
             </div>
         </div>
     )

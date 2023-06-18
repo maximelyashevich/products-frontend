@@ -14,12 +14,12 @@ export const Context = (props) => {
   const [loading, setLoading] = useState(true)
   const [commentLoading, setCommentLoading] = useState(true)
   const [comments, setComments] = useState([])
-  const [status, setStatus] = useState('')
   const [myPosts, setMyPosts] = useState([])
   const [filter, setFilter] = useState({
     item: '', not_me: '0', q: ' '
   })
   const [cart, setCart] = useState([])
+
 
   useEffect(() => {
     fetchProducts(filter)
@@ -37,30 +37,28 @@ export const Context = (props) => {
     await instance.get(`/posts?&not_me=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : 0}&filter=${filter.item}&from_=${filter.from === 'up' ? 'up' : filter.from === 'down' ? 'down' : ''}&q=${filter.q}&limit=3&page=0`)
       .then((res) => {
         setProducts(res.data)
-        if (res.data.length === 0) {
-          setStatus('None')
-        } else {
-          setStatus('')
-        }
-      }).catch(err => console.log(err.status))
+      }).catch(err => console.log(err))
     setLoading(false)
   }
 
   const addToCart = (el) => {
     let inCart = false
     cart.forEach(element => {
-      if (element.id === el.id){
+      if (element.id === el.id) {
         inCart = true
       }
     });
     if (!inCart) {
-      setCart(prev => [...prev, el])  
+      setCart(prev => [...prev, el])
     } else {
       alert('Вы уже добавили этот товар!')
     }
-    
   }
-  
+
+  const deleteFromCart = (el) => {
+    setCart(prev => prev.filter(element => element.id !== el.id))
+  }
+
   /*
     fetch signIn | signUp 
   */
@@ -75,7 +73,11 @@ export const Context = (props) => {
       localStorage.setItem('token', JSON.stringify(res.data.access_token))
       setFilter({ ...filter, not_me: res.data.user.id })
       localStorage.setItem('user', JSON.stringify(res.data.user))
-    }).catch(err => alert(err))
+    }).catch(err => {
+      if (err.response.status === 400) {
+        alert('пользователь с такой почтой существует!')
+      }
+    })
   }
 
   const signInHandler = async (data) => {
@@ -85,7 +87,14 @@ export const Context = (props) => {
       localStorage.setItem('token', JSON.stringify(res.data.access_token))
       setFilter({ ...filter, not_me: res.data.user.id })
       localStorage.setItem('user', JSON.stringify(res.data.user))
-    }).catch(err => alert(err))
+    }).catch(err => {
+      if (err.response.status === 404){
+        alert('Пользователь с такой почтой не найден!')
+      }
+      if (err.response.status === 400){
+        alert('Неверный пароль!')
+      }
+    })
   }
 
   /*
@@ -102,7 +111,9 @@ export const Context = (props) => {
       localStorage.removeItem("user")
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
-    }).catch(err => alert(err))
+    }).catch(err => {
+     alert(err.response.message)
+    })
   }
 
   const setUserFromLS = () => {
@@ -178,23 +189,15 @@ export const Context = (props) => {
   }
 
   const value = {
-    user,
-    setUser,
-    products,
-    fetchProducts,
-    setUserFromLS,
-    fetchProductComment,
-    product,
-    comments,
-    userComment,
-    fetchUserComment,
-    fetchPutUser,
-    fetchComment,
-    signUpHandler,
-    signInHandler, fetchRefresh,
+    user, setUser,
+    products, fetchProducts, fetchProductComment,   product, fetchMyPosts,
+    setUserFromLS, userComment,fetchUserComment, fetchPutUser, myPosts,
+    comments, fetchComment,
+    signUpHandler, signInHandler, fetchRefresh,
     fetchAnotherUser, anotherUser,
-    loading, commentLoading, setFilter, filter,
-    fetchMyPosts, status, myPosts, cart, addToCart, setCart
+    loading, commentLoading, 
+    setFilter, filter,
+    cart, addToCart, setCart, deleteFromCart
   }
   return <CustomContext.Provider value={value}>
     {
