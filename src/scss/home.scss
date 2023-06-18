@@ -4,12 +4,44 @@
     padding: 50px 0;
     border-radius: 10px;
     margin: 20px 10px;
+    user-select: none;
 
     &__content {
         display: flex;
         column-gap: 20px;
         column-count: 4;
         flex-wrap: wrap;
+    }
+
+    &__delete {
+        float: right;
+        font-size: 30px;
+        transition: .1s color ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            transition: .1s all ease-in-out;
+            color: red;
+        }
+
+        &:active {
+            scale: 1.1;
+            color: rgb(131, 0, 0);
+        }
+    }
+
+    &__add-to-cart {
+        cursor: pointer;
+        transition: .2s all;
+
+        &:hover {
+            color: red;
+            transition: .2s all;
+        }
+
+        &:active {
+            transform: scale(1.1);
+        }
     }
 
     &__card {

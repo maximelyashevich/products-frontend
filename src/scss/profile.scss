@@ -10,6 +10,23 @@
         column-gap: 20px;
         column-count: 4;
         flex-wrap: wrap;
+        
+        .item {
+            &__description {
+                margin-top: 10px;
+                cursor: pointer;
+                user-select: none;
+                width: 275px;
+                height: 100px;
+                overflow: hidden;
+    
+                &__active {
+                    cursor: pointer;
+                    user-select: none;
+                    height: auto;
+                }
+            }
+        }
     }
 
     &__link {

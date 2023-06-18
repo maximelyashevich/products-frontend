@@ -9,11 +9,12 @@ import { CustomContext } from "./context"
 import { useEffect, useContext } from "react"
 import Profile from "./pages/Profile/Profile"
 import Account from "./pages/Account/Account"
+import { Cart } from "./pages/Cart/Cart"
 
 
 function App() {
 
-  const { setUserFromLS, fetchProducts } = useContext(CustomContext)
+  const { setUserFromLS } = useContext(CustomContext)
   useEffect(() => {
     setUserFromLS()
   }, [])
@@ -25,10 +26,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile/*" element={<Profile />} />
+          <Route path="/cart" element={<Cart/>}/>
           <Route path="/product/:id" element={<Post />} />
           <Route path="/add-post" element={<AddPost />} />
-          <Route path="/account/:id" element={<Account />}/>
-            </Routes>
+          <Route path="/account/:id" element={<Account />} />
+        </Routes>
         <Footer />
       </div>
     </>

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 const Popup = ({ popup, setPopup }) => {
   const [status, setStatus] = useState("signIn");
-  const {setUser, signInHandler, signUpHandler} = useContext(CustomContext)
+  const {signInHandler, signUpHandler} = useContext(CustomContext)
 
   const {
     handleSubmit,

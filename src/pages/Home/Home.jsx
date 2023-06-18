@@ -2,10 +2,11 @@ import React, { useEffect, useContext } from 'react'
 import { CustomContext } from '../../context'
 import { Card } from '../../components/Card/Card'
 import CardLoading from '../../components/Loading/CardLoading'
+import { AiOutlineHeart } from 'react-icons/ai'
 
 const Home = () => {
 
-  const { products, fetchProducts, user, loading } = useContext(CustomContext)
+  const { products, fetchProducts, user, loading, status } = useContext(CustomContext)
 
   useEffect(() => {
     fetchProducts(user.id)
@@ -15,11 +16,11 @@ const Home = () => {
     <div className='home'>
       <div className="container">
         <div className='home__content'>
-          {products.length === 0 ? <p>Нет таких товаров...</p> : loading ? <>
+          {status === 'None' ? <p>Нет таких товаров!</p> : loading ? <>
               <CardLoading />
             </> :
               products.map((item) => (
-                <Card key={item.id} item={item} />
+                <Card key={item.id} item={item} heart={<AiOutlineHeart className='home__add-to-cart' style={{ fontSize: '30px' }} />} />
               ))
           }
         </div>

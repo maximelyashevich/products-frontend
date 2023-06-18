@@ -4,21 +4,20 @@ import { Card } from '../../components/Card/Card'
 
 export const Posts = () => {
 
-  const {fetchMyPosts, products} = useContext(CustomContext)
+  const { myPosts, fetchMyPosts } = useContext(CustomContext)
 
   useEffect(()=> {
     fetchMyPosts()
   }, [])
 
-  console.log(products)
   return (
     <div className='profile__posts'>
       {
-        products.map(item => {
-          return(
-             <Card item={item}/>
-          )
-        })
+        myPosts.map(item => {
+            return (
+              <Card key={item.id} item={item} />
+            )}
+        )
       }
     </div>
   )

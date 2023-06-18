@@ -14,24 +14,53 @@ export const Context = (props) => {
   const [loading, setLoading] = useState(true)
   const [commentLoading, setCommentLoading] = useState(true)
   const [comments, setComments] = useState([])
+  const [status, setStatus] = useState('')
+  const [myPosts, setMyPosts] = useState([])
   const [filter, setFilter] = useState({
-    item: ''
+    item: '', not_me: '0', q: ' '
   })
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
     fetchProducts(filter)
   }, [filter])
 
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
+
+
   /*
     fetch products
   */
   const fetchProducts = async () => {
-    await instance.get(`/posts?&page=0&not_me=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : 0}&filter=${filter.item}&from_=${filter.from === 'up' ? 'up' : filter.from ==='down' ? 'down' : ''}`)
+    await instance.get(`/posts?&not_me=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : 0}&filter=${filter.item}&from_=${filter.from === 'up' ? 'up' : filter.from === 'down' ? 'down' : ''}&q=${filter.q}&limit=3&page=0`)
       .then((res) => {
         setProducts(res.data)
-      }).catch(err => alert(err))
+        if (res.data.length === 0) {
+          setStatus('None')
+        } else {
+          setStatus('')
+        }
+      }).catch(err => console.log(err.status))
     setLoading(false)
   }
+
+  const addToCart = (el) => {
+    let inCart = false
+    cart.forEach(element => {
+      if (element.id === el.id){
+        inCart = true
+      }
+    });
+    if (!inCart) {
+      setCart(prev => [...prev, el])  
+    } else {
+      alert('Вы уже добавили этот товар!')
+    }
+    
+  }
+  
   /*
     fetch signIn | signUp 
   */
@@ -44,6 +73,7 @@ export const Context = (props) => {
       setUser(res.data.user)
       localStorage.setItem('refresh', JSON.stringify(res.data.refresh_token))
       localStorage.setItem('token', JSON.stringify(res.data.access_token))
+      setFilter({ ...filter, not_me: res.data.user.id })
       localStorage.setItem('user', JSON.stringify(res.data.user))
     }).catch(err => alert(err))
   }
@@ -53,6 +83,7 @@ export const Context = (props) => {
       setUser(res.data.user)
       localStorage.setItem('refresh', JSON.stringify(res.data.refresh_token))
       localStorage.setItem('token', JSON.stringify(res.data.access_token))
+      setFilter({ ...filter, not_me: res.data.user.id })
       localStorage.setItem('user', JSON.stringify(res.data.user))
     }).catch(err => alert(err))
   }
@@ -78,6 +109,9 @@ export const Context = (props) => {
     if (JSON.parse(localStorage.getItem('user')) !== null) {
       setUser(JSON.parse(localStorage.getItem('user')))
     }
+    if (JSON.parse(localStorage.getItem('cart')) !== null) {
+      setCart(JSON.parse(localStorage.getItem('cart')))
+    }
   }
 
   const fetchAnotherUser = async (id) => {
@@ -89,9 +123,10 @@ export const Context = (props) => {
     await instance.get(`/user/posts`, {
       headers: {
         "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-      }}).then(({data}) => {
-        setProducts(data)
-      }).catch(err => alert(err))
+      }
+    }).then(({ data }) => {
+      setMyPosts(data)
+    }).catch(err => alert(err))
   }
 
   /*
@@ -159,7 +194,7 @@ export const Context = (props) => {
     signInHandler, fetchRefresh,
     fetchAnotherUser, anotherUser,
     loading, commentLoading, setFilter, filter,
-    fetchMyPosts
+    fetchMyPosts, status, myPosts, cart, addToCart, setCart
   }
   return <CustomContext.Provider value={value}>
     {
