@@ -10,12 +10,9 @@ const Post = () => {
   const params = useParams()
   const [popup, setPopup] = useState(false)
   const { product, fetchProductComment, comments, user, commentLoading, addToCart} = useContext(CustomContext)
-
   useEffect(() => {
     fetchProductComment(params.id)
   }, [])
-
-  console.log(product)
 
   return (
     <div className='product'>
@@ -39,8 +36,8 @@ const Post = () => {
             {
               commentLoading ? <BulletList/> : comments[0] ? <>{comments.map(item => {
                 return (
-                  <div key={item.id}>
-                    <Comment title={item.title} text={item.text} author={item.author} />
+                  <div >
+                    <Comment key={item.id} title={item.title} text={item.text} author={item.author} />
                   </div>
                 )
               })}</> : <>Пусто</>

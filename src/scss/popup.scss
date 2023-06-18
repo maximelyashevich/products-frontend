@@ -22,7 +22,7 @@
   transform: translate(-50%, -50%);
   max-width: 500px;
   width: 100%;
-  background: #fff;
+  background-color: #1e153ad4;
   border-radius: 10px;
   padding: 50px 50px;
 
@@ -39,7 +39,7 @@
     font-size: 25px;
 
     &_active {
-      color: rgb(18, 95, 171);
+      color: rgb(137, 83, 255);
       text-decoration: underline 1px;
       text-underline-offset: 5px;
     }
@@ -51,9 +51,12 @@
     height: 40px;
     margin-bottom: 20px;
     outline: none;
-    border: 0.1px solid #111;
-    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    border-bottom: 2px solid white;
     padding-left: 20px;
+    background: none;
+    color: white;
   }
 
   textarea {
@@ -68,7 +71,7 @@
     width: 30%;
     padding: 12px 30px;
     margin-top: 10px;
-
+    background-color: $btn-color;
   }
 
 

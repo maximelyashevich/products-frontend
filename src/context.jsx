@@ -18,6 +18,7 @@ export const Context = (props) => {
   const [filter, setFilter] = useState({
     item: '', not_me: '0', q: ' '
   })
+  const [anotherUserProducts, setAnotherUserProducts] = useState([])
   const [cart, setCart] = useState([])
 
 
@@ -140,6 +141,10 @@ export const Context = (props) => {
     }).catch(err => alert(err))
   }
 
+  const fetchAnotherUserPosts = async (id) => {
+    await instance.get(`/posts/user/${id}`).then((res) => setAnotherUserProducts(res.data)).status(err => alert(err))
+  }
+
   /*
     fetch comment
   */
@@ -197,7 +202,8 @@ export const Context = (props) => {
     fetchAnotherUser, anotherUser,
     loading, commentLoading, 
     setFilter, filter,
-    cart, addToCart, setCart, deleteFromCart
+    cart, addToCart, setCart, deleteFromCart,
+    fetchAnotherUserPosts, anotherUserProducts
   }
   return <CustomContext.Provider value={value}>
     {

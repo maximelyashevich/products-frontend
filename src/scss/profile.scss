@@ -10,7 +10,7 @@
         column-gap: 20px;
         column-count: 4;
         flex-wrap: wrap;
-        
+
         .item {
             &__description {
                 margin-top: 10px;
@@ -19,7 +19,7 @@
                 width: 275px;
                 height: 100px;
                 overflow: hidden;
-    
+
                 &__active {
                     cursor: pointer;
                     user-select: none;
@@ -52,31 +52,29 @@
     }
 
     &__balance {
-
-        h2,
-        h3 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0;
-        }
-
-        form {
-            input {
-                width: 60%;
-            }
+        &__input {
+            
+            margin-top: 20px;
+            width: 50%;
+            height: 40px;
+            margin-bottom: 20px;
+            outline: none;
+            border: 0.1px solid #111;
+            border-radius: 10px;
+            padding-left: 20px;
         }
     }
 
 }
 
-.settings { 
-      hr {
-            display: flex;
-            margin: 0 auto;
-            width: 80%;
-            margin-top: 20px;
-        }
+.settings {
+    hr {
+        display: flex;
+        margin: 0 auto;
+        width: 80%;
+        margin-top: 20px;
+    }
+
     .form {
         &__input {
             display: flex;
@@ -98,6 +96,10 @@
             margin-top: 30px;
         }
 
-     
+
     }
+}
+
+.rccs__card--unkown {
+    background-image: url('https://wallpaperset.com/w/full/4/8/6/487528.jpg');
 }

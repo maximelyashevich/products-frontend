@@ -6,8 +6,6 @@ import { BsTrash } from 'react-icons/bs'
 export const Settings = () => {
 
   const { user, fetchPutUser } = useContext(CustomContext)
-
-
   const {
     handleSubmit,
     register,
@@ -36,7 +34,6 @@ export const Settings = () => {
               inp.value = ''
             }} style={{ position: 'absolute', top: '40%', right: '7.75%', zIndex: 1, fontSize: '20px', cursor: 'pointer' }} />
           </div>
-
           <hr />
         </div>
         <div className="form__settings__info">

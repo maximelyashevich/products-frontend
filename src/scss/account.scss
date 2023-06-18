@@ -4,4 +4,57 @@
     padding: 50px 0;
     border-radius: 10px;
     margin: 20px 10px;
+
+    &__wrapper {
+        background: rgb(47,41,135);
+        background: linear-gradient(90deg, rgba(47,41,135,1) 4%, rgba(57,57,212,1) 61%, rgba(189,71,242,1) 100%);
+        height: 15rem;
+        width: 100%;
+    }
+
+    &__products {
+        margin-top: 20px;
+        display: flex;
+        column-gap: 20px;
+        column-count: 4;
+        flex-wrap: wrap;
+        border-top: 1px solid rgb(144, 144, 144);
+    }
+
+    &__img {
+        object-fit: cover;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+    }
+
+    .item {
+        &__description {
+            margin-top: 10px;
+            cursor: pointer;
+            user-select: none;
+            width: 275px;
+            height: 100px;
+            overflow: hidden;
+
+            &__active {
+                cursor: pointer;
+                user-select: none;
+                height: auto;
+            }
+        }
+    }
+
+    &-content {
+        position: relative;
+        top: -7rem;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 10rem;
+    }
+
+    &__name {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
 }

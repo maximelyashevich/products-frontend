@@ -1,31 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Geologica:wght@600&family=Montserrat:wght@400;600;700&display=swap');
 
-$bg-color: #fefefedc;
+$bg-color: rgba(16 18 27 / 40%);
 $form: #fcfcfc;
 $select-color: #fff;
 $select-background: rgb(18, 95, 171);
 $select-width: 220px;
 $select-height: 40px;
+$search-bg:  #14162b;
+$btn-color:#513073;
+$header-color: #2e2e2e;
+$card-bg: rgb(146 151 179 / 13%);
+$popap-title: #0a0b1b;
+
+
+:root {
+    --theme-bg-color: rgba(16 18 27 / 40%);
+    --border-color: rgba(113 119 144 / 25%);
+    --theme-color: #f9fafb;
+    --inactive-color: rgb(113 119 144 / 78%);
+    --body-font: "Poppins", sans-serif;
+    --hover-menu-bg: rgba(12 15 25 / 30%);
+    --content-title-color: #999ba5;
+    --content-bg: rgb(146 151 179 / 13%);
+    --button-inactive: rgb(249 250 251 / 55%);
+    --dropdown-bg: #21242d;
+    --dropdown-hover: rgb(42 46 60);
+    --popup-bg: rgb(22 25 37);
+    --search-bg:  #14162b;
+    --overlay-bg: rgba(36, 39, 59, 0.3);
+    --scrollbar-bg: rgb(1 2 3 / 40%);
+   }
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     list-style-type: none;
+    color: rgb(255, 255, 255);
     text-decoration: none;
-
     a {
         color: #333;
     }
 }
 
-/*body {
-    background: url('../assets/bg.jpg');
-}*/
+.video-bg {
+    z-index: -1;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    
+    video {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+    }
+   }
+
 
 button {
     cursor: pointer;
-    background: rgb(18, 95, 171);
+    background: $btn-color;
     border-radius: 10px;
     border: none;
     color: white;
@@ -59,11 +95,12 @@ select {
     justify-content: center;
     margin: 0 10%;
     position: relative;
-    background-color: rgb(18, 95, 171);
+    background-color: $btn-color;
     color: #fff;
     padding: 10px 15px;
     outline: none;
     margin-bottom: 20px;
+    border: none;
     border-radius: 10px;
 }
 

@@ -30,7 +30,7 @@ export const Card = ({ item, basket, heart }) => {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', overflow: 'hidden' }}>
                     {
                         user.id == item.author.id ? <img alt='user' src={item.author.img} className='header__user_avatar' /> : <Link aria-label="Перейти в профиль" to={`/account/${item.author.id}`}>
-                            <LazyLoadImage alt='user' src={item.author.img} className='header__user_avatar' placeholderSrc='https://avatars.mds.yandex.net/i?id=b5d48f6503c4c16efcd372946a0b27169c58e895-7215189-images-thumbs&n=13' />
+                            <LazyLoadImage alt='user' src={item.author.img} className='header__user_avatar' placeholderSrc='src\assets\user.png' />
                         </Link>
                     }
                     

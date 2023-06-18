@@ -54,9 +54,15 @@
         height: 600px;
         transition: all .2s ease;
         position: relative;
+        background-color: $card-bg;
+        border: 1px solid $bg-color;
+
+        cursor: pointer;
+        transition: 0.3s ease;
 
         &:hover {
-            transform: translateY(5px);
+            transform: scale(1.01);
+            background-color: $bg-color;
         }
     }
 

@@ -61,7 +61,7 @@ const Header = () => {
                     <Link to="/profile/my-posts" style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
                       {
                         user.img ? <LazyLoadImage alt='user' src={`${user.img}`} className='header__user_avatar'
-                          placeholderSrc='https://cdn.icon-icons.com/icons2/2550/PNG/512/user_circle_icon_152504.png'
+                          placeholderSrc='src\assets\user.png'
                         /> : <p>Перейти в профиль</p>
                       }
                       <p>{user.name}</p></Link>
@@ -81,19 +81,19 @@ const Header = () => {
         {
           location.pathname === '/' && <div className="container">
             <div className="header__bottom-search">
-              <input onChange={debounceSearch} placeholder='Я ищу...' type="text" className='header__bottom-input' /><BsSearch className='header__bottom-icon' />
+              <input onChange={debounceSearch} placeholder='Я ищу...' type="text" className='header__bottom-input' />
             </div>
             <div className="header__bottom-list">
-              <div>
+              <div className='header__bottom-list__elements'>
                 <label><p>Всё</p> <input defaultChecked onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={''} type='radio' name="filter" /></label>
               </div>
-              <div>
+              <div className='header__bottom-list__elements'>
                 <label><p>Телефоны</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'phone'} type='radio' name="filter" /></label>
               </div>
-              <div>
+              <div className='header__bottom-list__elements'>
                 <label><p>Ноутбуки</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} type='radio' value={'notebook'} name="filter" /></label>
               </div>
-              <div>
+              <div className='header__bottom-list__elements'>
                 <label><p>Часы</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'watch'} type='radio' name="filter" /></label>
               </div>
             </div>

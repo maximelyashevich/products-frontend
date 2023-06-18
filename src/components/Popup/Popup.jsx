@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 const Popup = ({ popup, setPopup }) => {
   const [status, setStatus] = useState("signIn");
   const {signInHandler, signUpHandler} = useContext(CustomContext)
-
   const {
     handleSubmit,
     register,
@@ -14,7 +13,6 @@ const Popup = ({ popup, setPopup }) => {
       errors
     }
   } = useForm()
-
   const popupClose = (e) => {
     if (e.target.classList.contains('overlay')) {
       setPopup(false)
@@ -22,7 +20,6 @@ const Popup = ({ popup, setPopup }) => {
       setPopup(true)
     }
   }
-
   const submitForm = (data) => {
 
     if (status === 'signIn') {
@@ -33,12 +30,9 @@ const Popup = ({ popup, setPopup }) => {
     setPopup(false)
     reset()
   }
-
-
   return (
     <div onClick={(e) => popupClose(e)} className={`overlay ${popup && "overlay_active"}`}>
       <div className="popup">
-
         <form noValidate onSubmit={handleSubmit(submitForm)} action="" className="popup__form">
           <div className="popup__form-top">
             <h2 onClick={() => setStatus("signIn")} className={`popup__title ${status === "signIn" && "popup__title_active"}`}>
@@ -47,7 +41,6 @@ const Popup = ({ popup, setPopup }) => {
             <h2 onClick={() => setStatus("signUp")} className={`popup__title ${status === "signUp" && "popup__title_active"}`}>
               Регистрация
             </h2>
-
           </div>
           <input {...register("email", {
             required: {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Card } from '../../components/Card/Card'
-import { BsTrash } from 'react-icons/bs'
+import { BsTrash } from 'react-icons/bs/index.esm'
 import { CustomContext } from '../../context'
 
 export const Cart = () => {
