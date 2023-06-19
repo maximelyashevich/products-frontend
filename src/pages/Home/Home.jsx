@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react'
 import { CustomContext } from '../../context'
 import { Card } from '../../components/Card/Card'
 import CardLoading from '../../components/Loading/CardLoading'
-import { BsHeart } from 'react-icons/bs/index.esm'
+import { BsPlusCircle } from 'react-icons/bs'
 
 const Home = () => {
 
@@ -20,7 +20,7 @@ const Home = () => {
               <CardLoading />
             </> :
               products.map((item) => (
-                <Card key={item.id} item={item} heart={<BsHeart className='home__add-to-cart' style={{ fontSize: '25px' }} />} />
+                <Card key={item.id} item={item} heart={<BsPlusCircle className='home__add-to-cart' />} />
               ))
           }
         </div>

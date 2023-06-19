@@ -51,7 +51,7 @@ const AddPost = () => {
           </div>
           <div className="input">
             <div>
-              <input className='form__input' style={{width: '80%'}} {...register("title", {
+              <input className='form__input input' style={{width: '80%'}} {...register("title", {
                 required: {
                   message: "Это поле не может быть пустым!",
                   value: true
@@ -77,7 +77,7 @@ const AddPost = () => {
             </div>
             <p className='errors-error'>{errors.description?.message}</p>
             <div>
-              <input className='form__input' style={{width: '80%'}} {...register("img", {
+              <input className='form__input input' style={{width: '80%'}} {...register("img", {
                 required: {
                   message: "Это поле не может быть пустым!",
                   value: true
@@ -86,7 +86,7 @@ const AddPost = () => {
             </div>
             <p className='errors-error'>{errors.img?.message}</p>
             <div>
-              <input className='form__input' style={{width: '80%'}} {...register("price", {
+              <input className='form__input input' style={{width: '80%'}} {...register("price", {
                 required: {
                   message: "Это поле не может быть пустым!",
                   value: true

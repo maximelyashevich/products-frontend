@@ -33,80 +33,82 @@ const Header = () => {
 
   return (
     <header className='header'>
-      <div className="container">
-        <nav className='header__nav'>
-          <div className='header__left'>
-            <Link to="/">
-              <h1 className='header__title'>PRODUCTS</h1>
-            </Link>
-          </div>
-          <div className='header__right'>
-            {
-              user.email ?
-                <div>
-                  <div className='header__user'>
-                    <div className="header__user__cash" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
-                      <div className="header__user__cart">
-                        {
-                          location.pathname !== '/cart' && <Link to="/cart">
-                            <div style={{display: 'flex', alignItems: 'center', columnGap: '10px'}}>
-                              <div>{cart.length}</div>
-                              <BsBasket style={{ fontSize: '20px', cursor: 'pointer' }} />
-                            </div>
-                          </Link>
-                        }
+      <div >
+        <div className="container">
+          <nav className='header__nav'>
+            <div className='header__left'>
+              <Link to="/">
+                <h1 className='header__title'>PRODUCTS</h1>
+              </Link>
+            </div>
+            <div className='header__right'>
+              {
+                user.email ?
+                  <div>
+                    <div className='header__user'>
+                      <div className="header__user__cash" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
+                        <div className="header__user__cart">
+                          {
+                            location.pathname !== '/cart' && <Link to="/cart">
+                              <div style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
+                                <div>{cart.length}</div>
+                                <BsBasket style={{ fontSize: '20px', cursor: 'pointer' }} />
+                              </div>
+                            </Link>
+                          }
+                        </div>
+                        <p>Баланс: {user.balance}</p>
                       </div>
-                      <p>Баланс: {user.balance}</p>
+                      <Link to="/profile/my-posts" style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
+                        {
+                          user.img ? <LazyLoadImage alt='user' src={`${user.img}`} className='header__user_avatar'
+                            placeholderSrc='https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
+                          /> : <p>Перейти в профиль</p>
+                        }
+                        <p>{user.name}</p></Link>
+                      <button onClick={() => logOutUser()} type="button">Выйти</button>
+                      <Link to="/add-post"><button type='button' className='header__btn'>Создать пост</button></Link>
                     </div>
-                    <Link to="/profile/my-posts" style={{ display: 'flex', alignItems: 'center', columnGap: '10px' }}>
-                      {
-                        user.img ? <LazyLoadImage alt='user' src={`${user.img}`} className='header__user_avatar'
-                          placeholderSrc='src\assets\user.png'
-                        /> : <p>Перейти в профиль</p>
-                      }
-                      <p>{user.name}</p></Link>
-                    <button onClick={() => logOutUser()} type="button">Выйти</button>
-                    <Link to="/add-post"><button type='button' className='header__btn'>Создать пост</button></Link>
-                  </div>
-                </div> :
-                <p className='header__login' onClick={() => setPopup(true)}>Войти - Регистрация</p>
-            }
-          </div>
-        </nav>
-      </div>
-      {
-        popup && <Popup popup={popup} setPopup={setPopup} />
-      }
-      <div>
+                  </div> :
+                  <p className='header__login' onClick={() => setPopup(true)}>Войти - Регистрация</p>
+              }
+            </div>
+          </nav>
+        </div>
         {
-          location.pathname === '/' && <div className="container">
-            <div className="header__bottom-search">
-              <input onChange={debounceSearch} placeholder='Я ищу...' type="text" className='header__bottom-input' />
-            </div>
-            <div className="header__bottom-list">
-              <div className='header__bottom-list__elements'>
-                <label><p>Всё</p> <input defaultChecked onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={''} type='radio' name="filter" /></label>
-              </div>
-              <div className='header__bottom-list__elements'>
-                <label><p>Телефоны</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'phone'} type='radio' name="filter" /></label>
-              </div>
-              <div className='header__bottom-list__elements'>
-                <label><p>Ноутбуки</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} type='radio' value={'notebook'} name="filter" /></label>
-              </div>
-              <div className='header__bottom-list__elements'>
-                <label><p>Часы</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'watch'} type='radio' name="filter" /></label>
-              </div>
-            </div>
-            <div className="header__bottom_filters">
-              <p>Сортировать по цене</p>
-              <select value={filter.from} onChange={(e) => setFilter({ ...filter, from: e.target.value })}>
-                <option value=''>По умолчанию</option>
-                <option value='up'>Сначала дорогие</option>
-                <option value='down'>Сначала дешевые</option>
-              </select>
-            </div>
-          </div>
+          popup && <Popup popup={popup} setPopup={setPopup} />
         }
+        <div>
+          {
+            location.pathname === '/' && <div className="container">
+              <div className="header__bottom-search">
+                <input onChange={debounceSearch} placeholder='Я ищу...' type="text" className='header__bottom-input' />
+              </div>
+              <div className="header__bottom-list">
+                <div className='header__bottom-list__elements'>
+                  <label><p>Всё</p> <input defaultChecked onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={''} type='radio' name="filter" /></label>
+                </div>
+                <div className='header__bottom-list__elements'>
+                  <label><p>Телефоны</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'phone'} type='radio' name="filter" /></label>
+                </div>
+                <div className='header__bottom-list__elements'>
+                  <label><p>Ноутбуки</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} type='radio' value={'notebook'} name="filter" /></label>
+                </div>
+                <div className='header__bottom-list__elements'>
+                  <label><p>Часы</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'watch'} type='radio' name="filter" /></label>
+                </div>
+              </div>
+              <div className="header__bottom_filters">
+                <p>Сортировать по цене</p>
+                <select value={filter.from} onChange={(e) => setFilter({ ...filter, from: e.target.value })}>
+                  <option value=''>По умолчанию</option>
+                  <option value='up'>Сначала дорогие</option>
+                  <option value='down'>Сначала дешевые</option>
+                </select>
+              </div>
+            </div>
+          }
+        </div>
       </div>
     </header>
   )

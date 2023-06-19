@@ -25,11 +25,10 @@ export const Balance = () => {
   return (
     <div className='profile__balance'>
       <div className="container">
-        <h2>
-          Баланс
-        </h2>
         <form onSubmit={handleSubmit(submitForm)} action="" className="profile__balance-list form">
-          <h3>Пополнить баланс</h3>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <h3 >Пополнить баланс</h3>
+          </div>
           <div>
             <input {...register("num", {
               required: {

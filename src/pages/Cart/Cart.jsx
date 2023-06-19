@@ -20,23 +20,26 @@ export const Cart = () => {
             <div className="container">
                 <div className="cart__clean">
                     {
-                        orders.length !== 0 && <button onClick={() => {
-                            localStorage.removeItem('cart')
-                            location.reload()
-                        }} type='button' style={{ padding: '10px 15px' }}>Очистить корзину</button>
+                        orders.length !== 0 && <>
+                            <button onClick={() => {
+                                localStorage.removeItem('cart')
+                                location.reload()
+                            }} type='button' style={{ padding: '10px 15px' }}>Очистить корзину</button>
+                        </>
                     }
                 </div>
                 <div className="cart__items">
                     {
                         orders && orders.map(el =>
                         (
-                            <Card item={el} key={el.id} basket={<BsTrash style={{float: 'right'}} onClick={() => deleteFromCart(el)} className='home__delete' />} />
+                            <Card item={el} key={el.id} basket={<BsTrash style={{ float: 'right' }} onClick={() => deleteFromCart(el)} className='home__delete' />} />
                         )
                         )}
-                    {
-                        orders.length === 0 && <p>Пусто...</p>
-                    }
+                  
                 </div>
+                {
+                        orders.length === 0 ? <p>Пусто...</p> : <button style={{padding: '10px 15px'}}>Купить</button>
+                    }
             </div>
         </div>
     )

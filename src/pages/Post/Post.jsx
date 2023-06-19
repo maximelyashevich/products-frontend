@@ -9,7 +9,7 @@ const Post = () => {
 
   const params = useParams()
   const [popup, setPopup] = useState(false)
-  const { product, fetchProductComment, comments, user, commentLoading, addToCart} = useContext(CustomContext)
+  const { product, fetchProductComment, comments, user, commentLoading, addToCart } = useContext(CustomContext)
   useEffect(() => {
     fetchProductComment(params.id)
   }, [])
@@ -18,7 +18,7 @@ const Post = () => {
     <div className='product'>
       <div className='container'>
         <div className='product__nav'>
-          <Link to='/'>Главная</Link> - <p>Продукт</p>
+          <Link style={{ color: 'white' }} to='/'>Главная</Link> - <p>Продукт</p>
         </div>
         <div className='product__content'>
           <div className='product__content__left'>
@@ -30,11 +30,11 @@ const Post = () => {
             <p className='product__content-price'>{product.price} $</p>
             <hr />
             <div className="product__content_purchase">
-              <button onClick={() => addToCart(product)} style={{padding: '10px 15px'}}>Добавить в корзину</button>
+              <button onClick={() => addToCart(product)} style={{ padding: '10px 15px' }}>Добавить в корзину</button>
             </div>
-            <h3 className='product__content__comment-title'>Отзывы</h3>   
+            <h3 className='product__content__comment-title'>Отзывы</h3>
             {
-              commentLoading ? <BulletList/> : comments[0] ? <>{comments.map(item => {
+              commentLoading ? <BulletList /> : comments[0] ? <>{comments.map(item => {
                 return (
                   <div >
                     <Comment key={item.id} title={item.title} text={item.text} author={item.author} />

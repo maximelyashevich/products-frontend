@@ -2,7 +2,7 @@
    -webkit-box-shadow: -7px -1px 47px -3px rgba(34, 60, 80, 0.2);
    padding: 20px 0;
    border-radius: 10px;
-   margin: 10px;
+   margin: 40px;
    background-color: $bg-color;
    color: $header-color;
 
@@ -54,7 +54,7 @@
          width: 50px;
          height: 50px;
          border-radius: 50%;
-         border: 2px solid rgb(255, 152, 18);
+         border: 2px solid #57ced4;
       }
    }
 
@@ -138,7 +138,7 @@
                transform: scale(0);
                transition: 120ms transform ease-in-out;
 
-               background-color: rgb(121, 87, 255);
+               background-color: rgb(225, 224, 227);
              }
              
              input[type="radio"]:checked::before {

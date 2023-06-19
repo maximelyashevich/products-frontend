@@ -3,17 +3,22 @@
     -webkit-box-shadow: 0px 20px 47px -3px rgba(34, 60, 80, 0.2);
     padding: 50px 0;
     border-radius: 10px;
-    margin: 20px 10px;
+    margin: 20px 40px;
+    backdrop-filter: blur(10px);
 
     &__wrapper {
-        background: rgb(47,41,135);
-        background: linear-gradient(90deg, rgba(47,41,135,1) 4%, rgba(57,57,212,1) 61%, rgba(189,71,242,1) 100%);
+        background: $bg-color;
         height: 15rem;
+        backdrop-filter: blur(10px);
         width: 100%;
+        border-radius: 10px;
     }
 
     &__products {
-        margin-top: 20px;
+        background: $bg-color;
+        border-radius: 10px;
+        position: relative;
+        margin-top: -15%;
         display: flex;
         column-gap: 20px;
         column-count: 4;
@@ -26,23 +31,6 @@
         width: 250px;
         height: 250px;
         border-radius: 50%;
-    }
-
-    .item {
-        &__description {
-            margin-top: 10px;
-            cursor: pointer;
-            user-select: none;
-            width: 275px;
-            height: 100px;
-            overflow: hidden;
-
-            &__active {
-                cursor: pointer;
-                user-select: none;
-                height: auto;
-            }
-        }
     }
 
     &-content {

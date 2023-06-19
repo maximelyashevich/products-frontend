@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 import instance from "./axios";
+import { json, useLocation } from "react-router-dom";
 
 
 export const CustomContext = createContext()
@@ -15,14 +16,15 @@ export const Context = (props) => {
   const [commentLoading, setCommentLoading] = useState(true)
   const [comments, setComments] = useState([])
   const [myPosts, setMyPosts] = useState([])
+  const location = useLocation()
   const [filter, setFilter] = useState({
     item: '', not_me: '0', q: ' '
   })
   const [anotherUserProducts, setAnotherUserProducts] = useState([])
   const [cart, setCart] = useState([])
 
-
   useEffect(() => {
+    if (!location.pathname.includes('profile'))
     fetchProducts(filter)
   }, [filter])
 
@@ -89,10 +91,10 @@ export const Context = (props) => {
       setFilter({ ...filter, not_me: res.data.user.id })
       localStorage.setItem('user', JSON.stringify(res.data.user))
     }).catch(err => {
-      if (err.response.status === 404){
+      if (err.response.status === 404) {
         alert('Пользователь с такой почтой не найден!')
       }
-      if (err.response.status === 400){
+      if (err.response.status === 400) {
         alert('Неверный пароль!')
       }
     })
@@ -113,7 +115,15 @@ export const Context = (props) => {
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
     }).catch(err => {
-     alert(err.response.message)
+      alert(err.response.message)
+    })
+  }
+
+  const fetchDeleteUser = async (id) => {
+    await instance.delete(`/user/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+      }
     })
   }
 
@@ -150,7 +160,7 @@ export const Context = (props) => {
   */
 
   const fetchProductComment = async (id) => {
-    await instance.get(`/post/${id}`).then((res) => {
+    instance.get(`/post/${id}`).then((res) => {
       setProduct(res.data)
     }).catch(err => alert(err))
     await instance.get(`/post/comment/${id}`).then((res) => {
@@ -158,6 +168,24 @@ export const Context = (props) => {
     }).catch(err => alert(err))
     setLoading(false)
     setCommentLoading(false)
+  }
+
+  const fetchPutProduct = async (item) => {
+    await instance.put(`/post/${item.id}`, item, {
+      headers: {
+        'Authorization': `Bearer ` + JSON.parse(localStorage.getItem('token'))
+      }
+    }).then((res) => {
+      setProduct(res.data)
+    }).catch(err => alert(err))
+  }
+
+  const fetchDeleteProduct = async (id) => {
+    await instance.delete(`/post/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+      }
+    }).catch(err => alert(err))
   }
 
   const fetchUserComment = async (id) => {
@@ -195,15 +223,16 @@ export const Context = (props) => {
 
   const value = {
     user, setUser,
-    products, fetchProducts, fetchProductComment,   product, fetchMyPosts,
-    setUserFromLS, userComment,fetchUserComment, fetchPutUser, myPosts,
+    products, fetchProducts, fetchProductComment, product, fetchMyPosts,
+    setUserFromLS, userComment, fetchUserComment, fetchPutUser, myPosts,
     comments, fetchComment,
     signUpHandler, signInHandler, fetchRefresh,
     fetchAnotherUser, anotherUser,
-    loading, commentLoading, 
+    loading, commentLoading,
     setFilter, filter,
     cart, addToCart, setCart, deleteFromCart,
-    fetchAnotherUserPosts, anotherUserProducts
+    fetchAnotherUserPosts, anotherUserProducts, fetchPutProduct,
+    fetchDeleteProduct, fetchDeleteUser
   }
   return <CustomContext.Provider value={value}>
     {
