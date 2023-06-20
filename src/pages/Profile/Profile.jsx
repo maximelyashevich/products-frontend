@@ -11,7 +11,6 @@ const Profile = () => {
 
     const location = useLocation()
     const { user } = useContext(CustomContext)
-    console.log(user)
 
     return (
         <div className='profile'>

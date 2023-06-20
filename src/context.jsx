@@ -115,7 +115,7 @@ export const Context = (props) => {
 
   const fetchUser = async () => {
     await instance.get(`/user/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {
-      console.log(res.data)
+
       setUser(res.data)
     }).catch(err => console.log(err))
   }
@@ -126,7 +126,6 @@ export const Context = (props) => {
         "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
       }
     }).then((res) => {
-      console.log(res.data)
       localStorage.removeItem("user")
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
@@ -170,7 +169,7 @@ export const Context = (props) => {
   }
 
   const fetchAnotherUserPosts = async (id) => {
-    await instance.get(`/posts/user/${id}`).then((res) => setAnotherUserProducts(res.data)).status(err => alert(err))
+    await instance.get(`/posts/user/${id}`).then((res) => setAnotherUserProducts(res.data)).catch(err => alert(err))
   }
 
   /*
