@@ -5,8 +5,16 @@ import { CustomContext } from '../../context'
 
 export const CommentPopup = ({ popup, setPopup }) => {
 
-  const {product, fetchComment, commentLoading} = useContext(CustomContext)
+  const {product, setLoading} = useContext(CustomContext)
 
+  const fetchComment = async (data, product) => {
+    instance.post("/post/comment", { ...data, product: product.id }, {
+      headers: {
+        "Authorization": `Bearer ${JSON.parse(localStorage.getItem("token"))}`
+      }
+    }).catch(err => alert(err))
+    setLoading(false)
+  }
 
   const popupClose = (e) => {
     if (e.target.classList.contains('overlay')) {

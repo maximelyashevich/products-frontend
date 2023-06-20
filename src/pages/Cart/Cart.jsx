@@ -3,12 +3,15 @@ import { Card } from '../../components/Card/Card'
 import { BsTrash } from 'react-icons/bs/index.esm'
 import { CustomContext } from '../../context'
 import { useNavigate } from 'react-router-dom'
+import instance from '../../axios'
 
 export const Cart = () => {
 
-    const { cart } = useContext(CustomContext)
+    const { cart, setCart } = useContext(CustomContext)
 
     const [orders, setOrders] = useState([])
+
+    const [pStatus, setPStatus] = useState()
 
     const navigate = useNavigate()
 
@@ -16,7 +19,19 @@ export const Cart = () => {
         setOrders(cart)
     }, [JSON.parse(localStorage.getItem('cart'))])
 
-    const { deleteFromCart,fetchPurchase, pStatus } = useContext(CustomContext)
+    const fetchPurchase = async (id, item) => {
+        await instance.post(`/post/${id}`, { seller: item }, {
+          headers: {
+            "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+          }
+        }).then((res) => setPStatus(res.status)).catch(err => console.log(err))
+      }
+    
+
+    const deleteFromCart = (el) => {
+        setCart(prev => prev.filter(element => element.id !== el.id))
+      }
+    
 
     const makePurchase = () => {
         orders.forEach(element => {
@@ -25,9 +40,7 @@ export const Cart = () => {
         if (pStatus === 200) {    
             localStorage.removeItem('cart')
             navigate('/')
-        } else {
-            alert('Что-то пошло не так... Попробуйте еще раз')
-        }
+        } else navigate('/')
     }
 
     return (

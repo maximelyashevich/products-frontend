@@ -19,7 +19,6 @@ const Header = () => {
 
   const debounceSearch = debounce(searchFunc, 300)
 
-
   const logOutUser = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")

@@ -1,11 +1,47 @@
 import React, { useState, useContext } from "react";
 import { CustomContext } from "../../context";
 import { useForm } from "react-hook-form";
+import instance from "../../axios";
 
 
 const Popup = ({ popup, setPopup }) => {
   const [status, setStatus] = useState("signIn");
-  const {signInHandler, signUpHandler} = useContext(CustomContext)
+  const { setUser, setFilter, filter } = useContext(CustomContext)
+
+  const signUpHandler = async (data) => {
+    await instance.post("/registration", {
+      ...data,
+      balance: 1000
+    }).then((res) => {
+      setUser(res.data.user)
+      localStorage.setItem('refresh', JSON.stringify(res.data.refresh_token))
+      localStorage.setItem('token', JSON.stringify(res.data.access_token))
+      setFilter({ ...filter, not_me: res.data.user.id })
+      localStorage.setItem('user', JSON.stringify(res.data.user))
+    }).catch(err => {
+      if (err.response.status === 400) {
+        alert('пользователь с такой почтой существует!')
+      }
+    })
+  }
+
+  const signInHandler = async (data) => {
+    await instance.post("/login", data).then((res) => {
+      setUser(res.data.user)
+      localStorage.setItem('refresh', JSON.stringify(res.data.refresh_token))
+      localStorage.setItem('token', JSON.stringify(res.data.access_token))
+      setFilter({ ...filter, not_me: res.data.user.id })
+      localStorage.setItem('user', JSON.stringify(res.data.user))
+    }).catch(err => {
+      if (err.response.status === 404) {
+        alert('Пользователь с такой почтой не найден!')
+      }
+      if (err.response.status === 400) {
+        alert('Неверный пароль!')
+      }
+    })
+  }
+
   const {
     handleSubmit,
     register,
@@ -23,10 +59,10 @@ const Popup = ({ popup, setPopup }) => {
   const submitForm = (data) => {
 
     if (status === 'signIn') {
-      signInHandler(data)  
+      signInHandler(data)
     } else {
       signUpHandler(data)
-      }
+    }
     setPopup(false)
     reset()
   }

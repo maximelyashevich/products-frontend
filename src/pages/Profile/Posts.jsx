@@ -1,12 +1,22 @@
-import React, { useContext, useEffect } from 'react'
-import { CustomContext } from '../../context'
+import React, { useEffect, useState } from 'react'
 import { Card } from '../../components/Card/Card'
 import { BsPencilSquare } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+import instance from '../../axios'
 
 export const Posts = () => {
 
-  const { myPosts, fetchMyPosts } = useContext(CustomContext)
+  const [myPosts, setMyPosts] = useState([])
+
+  const fetchMyPosts = async () => {
+    await instance.get(`/user/posts`, {
+      headers: {
+        "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+      }
+    }).then(({ data }) => {
+      setMyPosts(data)
+    }).catch(err => alert(err))
+  }
 
   useEffect(() => {
     fetchMyPosts()

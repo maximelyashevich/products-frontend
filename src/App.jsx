@@ -5,16 +5,26 @@ import AddPost from './pages/AddPost/AddPost'
 import Header from './layout/Header/Header'
 import './scss/style.scss'
 import Footer from './layout/Footer/Footer'
-import { CustomContext } from "./context"
 import { useEffect, useContext } from "react"
 import Profile from "./pages/Profile/Profile"
 import Account from "./pages/Account/Account"
 import { Cart } from "./pages/Cart/Cart"
+import { CustomContext } from "./context"
 
 
 function App() {
 
-  const { setUserFromLS } = useContext(CustomContext)
+  const {setCart, setUser} = useContext(CustomContext)
+
+  const setUserFromLS = () => {
+    if (JSON.parse(localStorage.getItem('user')) !== null) {
+      setUser(JSON.parse(localStorage.getItem('user')))
+    }
+    if (JSON.parse(localStorage.getItem('cart')) !== null) {
+      setCart(JSON.parse(localStorage.getItem('cart')))
+    }
+  }
+
   useEffect(() => {
     setUserFromLS()
   }, [])

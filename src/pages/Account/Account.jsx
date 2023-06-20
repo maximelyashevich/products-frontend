@@ -1,11 +1,21 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { CustomContext } from '../../context'
 import { Card } from '../../components/Card/Card'
+import instance from '../../axios'
 
 const Account = () => {
+  const [anotherUserProducts, setAnotherUserProducts] = useState([])
+  const [anotherUser, setAnotherUser] = useState({})
 
-  const { fetchAnotherUser, anotherUser, fetchAnotherUserPosts, anotherUserProducts } = useContext(CustomContext)
+  const fetchAnotherUser = async (id) => {
+    await instance.get(`/user/${id}`).then((res) =>
+      setAnotherUser(res.data)).catch(err => console.log(err))
+  }
+
+  const fetchAnotherUserPosts = async (id) => {
+    await instance.get(`/posts/user/${id}`).then((res) => setAnotherUserProducts(res.data)).catch(err => alert(err))
+  }
+
   const param = useParams()
 
   useEffect(() => {
@@ -26,7 +36,7 @@ const Account = () => {
               <p>
                 {anotherUser.name}
               </p>
-              <hr/>
+              <hr />
             </div>
             <div className="account__email">
               <p>

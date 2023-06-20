@@ -3,10 +3,11 @@ import { CustomContext } from '../../context'
 import { useForm } from 'react-hook-form'
 import { BsTrash } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
+import instance from '../../axios'
 
 export const Settings = () => {
 
-  const { user, fetchPutUser, fetchDeleteUser, setCart, setFilter, setUser, filter } = useContext(CustomContext)
+  const { user, fetchPutUser, setCart, setFilter, setUser, filter } = useContext(CustomContext)
   const {
     handleSubmit,
     register,
@@ -23,6 +24,14 @@ export const Settings = () => {
     if (data.email === '') { data.email = user.email }
     fetchPutUser({ ...data, balance: user.balance })
     reset()
+  }
+
+  const fetchDeleteUser = async (id) => {
+    await instance.delete(`/user/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+      }
+    })
   }
 
   const deleteUser = () => {

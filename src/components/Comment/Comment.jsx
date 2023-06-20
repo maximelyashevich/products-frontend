@@ -1,11 +1,18 @@
-import React, { useEffect } from 'react'
-import { useContext } from 'react'
-import { CustomContext } from '../../context'
+import React, { useEffect, useState } from 'react'
+import instance from '../../axios'
 
 
 export const Comment = (props) => {
 
-  const { fetchUserComment, userComment } = useContext(CustomContext)
+  const [userComment, setUserComment] = useState({})
+
+  const fetchUserComment = async (id) => {
+    await instance.get(`/user/${id}`).then((res) => {
+      setUserComment(res.data)
+    }).catch(err => alert(err))
+    setLoading(false)
+  }
+
 
   useEffect(() => {
     fetchUserComment(props.author)

@@ -3,12 +3,33 @@ import { CustomContext } from '../../context'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import instance from '../../axios'
 
 export const ChangeProduct = () => {
 
-    const { fetchProductComment, product, fetchPutProduct, fetchDeleteProduct } = useContext(CustomContext)
+    const { fetchProductComment, product, setProduct } = useContext(CustomContext)
     const param = useParams()
     const navigate = useNavigate()
+
+    const fetchDeleteProduct = async (id) => {
+        await instance.delete(`/post/${id}`, {
+          headers: {
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token'))
+          }
+        }).catch(err => alert(err))
+      }
+
+
+    const fetchPutProduct = async (item) => {
+        await instance.put(`/post/${item.id}`, item, {
+          headers: {
+            'Authorization': `Bearer ` + JSON.parse(localStorage.getItem('token'))
+          }
+        }).then((res) => {
+          setProduct(res.data)
+        }).catch(err => alert(err))
+      }
+    
 
     useEffect(() => {
         fetchProductComment(param.id)
