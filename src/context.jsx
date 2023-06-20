@@ -16,6 +16,7 @@ export const Context = (props) => {
   const [commentLoading, setCommentLoading] = useState(true)
   const [comments, setComments] = useState([])
   const [myPosts, setMyPosts] = useState([])
+  const [pStatus, setPStatus] = useState(200)
   const location = useLocation()
   const [filter, setFilter] = useState({
     item: '', not_me: '0', q: ' '
@@ -24,8 +25,8 @@ export const Context = (props) => {
   const [cart, setCart] = useState([])
 
   useEffect(() => {
-    if (!location.pathname.includes('profile'))
-    fetchProducts(filter)
+    if (!location.pathname.includes('profile') | !location.pathname.includes('product'))
+      fetchProducts(filter)
   }, [filter])
 
   useEffect(() => {
@@ -60,6 +61,14 @@ export const Context = (props) => {
 
   const deleteFromCart = (el) => {
     setCart(prev => prev.filter(element => element.id !== el.id))
+  }
+
+  const fetchPurchase = async (id, item) => {
+    await instance.post(`/post/${id}`, { seller: item }, {
+      headers: {
+        "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+      }
+    }).then((res) => setPStatus(res.status)).catch(err => console.log(err))
   }
 
   /*
@@ -104,6 +113,13 @@ export const Context = (props) => {
     fetch user 
   */
 
+  const fetchUser = async () => {
+    await instance.get(`/user/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {
+      console.log(res.data)
+      setUser(res.data)
+    }).catch(err => console.log(err))
+  }
+
   const fetchPutUser = async (d) => {
     await instance.put(`/user/update`, d, {
       headers: {
@@ -115,7 +131,9 @@ export const Context = (props) => {
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
     }).catch(err => {
-      alert(err.response.message)
+      if (err.response.status === 400) {
+        alert('Проверьте данные!')
+      }
     })
   }
 
@@ -232,7 +250,7 @@ export const Context = (props) => {
     setFilter, filter,
     cart, addToCart, setCart, deleteFromCart,
     fetchAnotherUserPosts, anotherUserProducts, fetchPutProduct,
-    fetchDeleteProduct, fetchDeleteUser
+    fetchDeleteProduct, fetchDeleteUser, fetchPurchase, pStatus, fetchUser
   }
   return <CustomContext.Provider value={value}>
     {

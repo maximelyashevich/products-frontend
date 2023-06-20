@@ -33,12 +33,15 @@ const AddPost = () => {
   const submitForm = (data) => {
     createPost(data)
     reset
-    navigate("/")
+    navigate("/profile/my-posts")
   }
 
   return (
 
     <div className='add-post'>
+      {
+        user.email ? <></> : navigate('/')
+      }
       <div className="container">
         <div className="profile__crumbs">
           <Link to="/"><p>

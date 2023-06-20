@@ -1,17 +1,24 @@
-import React from 'react'
-import { NavLink, Link, Route, Routes, useLocation } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { NavLink, Link, Route, Routes, useLocation, Navigate } from 'react-router-dom'
 import { Posts } from './Posts'
 import { Settings } from './Settings'
 import { Balance } from './Balance'
 import { ChangeProduct } from './ChangeProduct'
+import { CustomContext } from '../../context'
 
 
 const Profile = () => {
 
     const location = useLocation()
+    const { user } = useContext(CustomContext)
+    console.log(user)
 
     return (
         <div className='profile'>
+            {
+                !user.email ? <Navigate to="/"/> : <></>
+
+            }
             <div className="container">
                 <div className="profile__link">
                     {
@@ -30,7 +37,7 @@ const Profile = () => {
                         {
                             location.pathname.includes('settings') ? 'Настройки профиля' : location.pathname.includes('balance') ? 'Баланс' :
                                 location.pathname.includes('my-posts') ? 'Мои объявления' : location.pathname.includes('product') ?
-                                'Редактировать продукт' : ''
+                                    'Редактировать продукт' : ''
 
                         }
                     </p>

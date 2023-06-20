@@ -27,7 +27,7 @@ export const ChangeProduct = () => {
             img: data.img ? data.img : product.img
         }
         fetchPutProduct(obj)
-        location.reload()
+        navigate('/profile/my-posts')
     }
 
     const deleteProduct = () => {

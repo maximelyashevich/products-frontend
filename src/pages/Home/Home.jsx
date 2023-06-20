@@ -6,14 +6,21 @@ import { BsPlusCircle } from 'react-icons/bs'
 
 const Home = () => {
 
-  const { products, fetchProducts, user, loading, status } = useContext(CustomContext)
+  const { products, fetchProducts, user, loading, status, fetchUser } = useContext(CustomContext)
 
   useEffect(() => {
     fetchProducts(user.id)
+    if (JSON.parse(localStorage.getItem('user'))){
+      fetchUser(user.id) 
+    }
+    
   }, [])
 
   return (
     <div className='home'>
+      {
+        products.length === 0 && <p style={{margin: '10px'}}>Пусто...</p>
+      }
       <div className="container">
         <div className='home__content'>
           {status === 'None' ? <p>Нет таких товаров!</p> : loading ? <>

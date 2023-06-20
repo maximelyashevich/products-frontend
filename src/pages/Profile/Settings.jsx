@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const Settings = () => {
 
-  const { user, fetchPutUser, fetchDeleteUser, setCart, setFilter, setUser } = useContext(CustomContext)
+  const { user, fetchPutUser, fetchDeleteUser, setCart, setFilter, setUser, filter } = useContext(CustomContext)
   const {
     handleSubmit,
     register,

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { CustomContext } from '../../context'
 import Popup from '../../components/Popup/Popup'
-import { BsSearch, BsBasket } from 'react-icons/bs'
+import { BsBasket } from 'react-icons/bs'
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import debounce from 'lodash.debounce';
@@ -96,6 +96,9 @@ const Header = () => {
                 </div>
                 <div className='header__bottom-list__elements'>
                   <label><p>Часы</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'watch'} type='radio' name="filter" /></label>
+                </div>
+                <div className='header__bottom-list__elements'>
+                  <label><p>Наушники</p> <input onChange={(e) => setFilter({ ...filter, item: e.target.value, q: '' })} value={'headphone'} type='radio' name="filter" /></label>
                 </div>
               </div>
               <div className="header__bottom_filters">

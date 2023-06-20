@@ -22,9 +22,16 @@
   transform: translate(-50%, -50%);
   max-width: 500px;
   width: 100%;
-  background-color: #18002edb;
+  background-color: #304cffdb;
   border-radius: 10px;
   padding: 50px 50px;
+
+  input::placeholder {
+    font-weight: bold;
+    opacity: 0.5;
+    color: rgb(255, 255, 255);
+}
+
 
   &__form-top {
     display: flex;
@@ -39,7 +46,7 @@
     font-size: 25px;
 
     &_active {
-      color: rgb(137, 83, 255);
+      color: rgb(65, 166, 255);
       text-decoration: underline 2px solid white;
       text-underline-offset: 5px;
     }

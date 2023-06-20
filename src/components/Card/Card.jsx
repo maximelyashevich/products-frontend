@@ -1,16 +1,15 @@
 import React, { useContext } from 'react'
 import { CustomContext } from '../../context'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 export const Card = ({ item, basket, heart }) => {
 
-    const { user, addToCart } = useContext(CustomContext)
-    const location = useLocation()
+    const { user, addToCart, fetchProductComment } = useContext(CustomContext)
 
     return (
         <div className='home__card' key={item.id}>
-            <NavLink to={`/product/${item.id}`}>
+            <NavLink onClick={() => fetchProductComment(item.id)} to={`/product/${item.id}`}>
                 <LazyLoadImage alt='user' src={`${item.img}`} className='home__img'
                     placeholderSrc='https://turma8mag.by/images/default-no-image.png' />
                 <h2 className='home__title'>{item.title}</h2>
