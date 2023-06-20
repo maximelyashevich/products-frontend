@@ -42,7 +42,7 @@ export const Balance = () => {
             })} placeholder='Номер карты' type="text" className="profile__balance-input form__input" />
           </div>
           <p className='errors-error'>
-            {errors.num && errors.num?.message}
+            {errors.num && errors.num.message}
           </p>
           <div>
             <input {...register("cvv", {
@@ -53,15 +53,11 @@ export const Balance = () => {
               maxLength: {
                 value: 3,
                 message: "Максимальная длина 3!"
-              },
-              maxLength: {
-                value: 3,
-                message: "Минимальная длина 3!"
               }
             })} placeholder='CVV код' type="text" className="profile__balance-input form__input" />
           </div>
           <p className='errors-error'>
-            {errors.cvv && errors.cvv?.message}
+            {errors.cvv && errors.cvv.message}
           </p>
           <label htmlFor="" className="profile__balance-label">
             <input placeholder='Сумма' {...register("money", {
@@ -72,7 +68,7 @@ export const Balance = () => {
             })} type="number" className="profile__balance-input form__input" />
           </label>
           <p className='errors-error'>
-            {errors.money && errors.money?.message}
+            {errors.money && errors.money.message}
           </p>
           <input {...register("password", {
             required: {

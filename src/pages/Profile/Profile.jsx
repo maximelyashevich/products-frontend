@@ -15,7 +15,7 @@ const Profile = () => {
     return (
         <div className='profile'>
             {
-                !user.email ? <Navigate to="/"/> : <></>
+                !user.email ? <Navigate to="/" /> : <></>
 
             }
             <div className="container">
@@ -34,10 +34,12 @@ const Profile = () => {
                 <div className="profile__crumbs">
                     <Link style={{ color: "#fff" }} to="/">Главная</Link> - <p style={{ color: "#d4b9ff" }}>
                         {
-                            location.pathname.includes('settings') ? 'Настройки профиля' : location.pathname.includes('balance') ? 'Баланс' :
-                                location.pathname.includes('my-posts') ? 'Мои объявления' : location.pathname.includes('product') ?
-                                    'Редактировать продукт' : ''
-
+                            location.pathname.includes('settings') && 'Настройки профиля'}
+                        {location.pathname.includes('balance') && 'Баланс'}
+                        {
+                            location.pathname.includes('my-posts') && 'Мои объявления'}
+                        {location.pathname.includes('product') ?
+                            'Редактировать продукт' : ''
                         }
                     </p>
                 </div>

@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { createContext } from "react";
+import { useEffect, useState, createContext, useMemo } from "react";
 import instance from "./axios";
 import { useLocation } from "react-router-dom";
-
 
 export const CustomContext = createContext()
 
@@ -20,8 +18,8 @@ export const Context = (props) => {
   const [cart, setCart] = useState([])
 
   useEffect(() => {
-    if (!location.pathname.includes('profile') | !location.pathname.includes('product'))
-      fetchProducts(filter)
+    if (!location.pathname.includes('profile') || !location.pathname.includes('product'))
+      fetchProducts()
   }, [filter])
 
   useEffect(() => {
@@ -31,8 +29,9 @@ export const Context = (props) => {
   /*
     fetch products
   */
+
   const fetchProducts = async () => {
-    await instance.get(`/posts?&not_me=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : 0}&filter=${filter.item}&from_=${filter.from === 'up' ? 'up' : filter.from === 'down' ? 'down' : ''}&q=${filter.q}&limit=3&page=0`)
+    await instance.get(`/posts?&not_me=${JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : 0}&filter=${filter.item}&from_=${filter.from === 'up' ? 'up' : 'down'}&q=${filter.q}&limit=3&page=0`)
       .then((res) => {
         setProducts(res.data)
       }).catch(err => console.log(err))
@@ -53,16 +52,16 @@ export const Context = (props) => {
     }
   }
 
-
   /*
     fetch user 
   */
 
   const fetchUser = async () => {
-    await instance.get(`/user/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {
-
+    if (JSON.parse(localStorage.getItem('user')).id) {
+       await instance.get(`/user/${JSON.parse(localStorage.getItem('user')).id}`).then(res => {
       setUser(res.data)
     }).catch(err => console.log(err))
+    }
   }
 
   const fetchPutUser = async (d) => {
@@ -96,11 +95,13 @@ export const Context = (props) => {
     setCommentLoading(false)
   }
 
-  const value = {
+  const value = useMemo(() => ({
     user, setUser, products, fetchProducts, fetchProductComment,
     product, comments, loading, commentLoading, setFilter, filter,
     cart, addToCart, setCart, fetchUser, fetchPutUser, setProduct
-  }
+  }), [ user, setUser, products, fetchProducts, fetchProductComment,
+    product, comments, loading, commentLoading, setFilter, filter,
+    cart, addToCart, setCart, fetchUser, fetchPutUser, setProduct])
 
   return <CustomContext.Provider value={value}>
     {

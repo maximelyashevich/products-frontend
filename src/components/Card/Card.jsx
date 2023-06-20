@@ -7,6 +7,14 @@ export const Card = ({ item, basket, heart }) => {
 
     const { user, addToCart, fetchProductComment } = useContext(CustomContext)
 
+    const check = (item) => {
+        if (!user.email) {
+            return (
+                <></>
+            )
+        }
+    }
+
     return (
         <div className='home__card' key={item.id}>
             <NavLink onClick={() => fetchProductComment(item.id)} to={`/product/${item.id}`}>
@@ -24,14 +32,19 @@ export const Card = ({ item, basket, heart }) => {
                     }
                     {basket}
                     {
-                        !user.email ? '' : user.id !== item.author.id ? <div onClick={() => addToCart(item)}>
-                            {heart}
-                        </div> : <NavLink onClick={() => {fetchProductComment(item.id)}} to={`/profile/product/${item.id}`}>
-                            {heart}
-                        </NavLink>
+                       check()
+                    }
+                    {
+                        user.id !==  item.author.id ? <div onClick={() => addToCart(item)}>
+                        {heart}
+                    </div> : <NavLink onClick={() => { fetchProductComment(item.id) }} to={`/profile/product/${item.id}`}>
+                        {heart}
+                    </NavLink>        
                     }
                 </div>
             </div>
         </div>
     )
 }
+
+

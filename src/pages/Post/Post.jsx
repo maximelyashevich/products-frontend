@@ -40,15 +40,13 @@ const Post = () => {
             }
             <h3 className='product__content__comment-title'>Отзывы</h3>
             {
-              commentLoading ? <BulletList /> : comments[0] ? <>{comments.map(item => {
-                return (
-                  <div >
-                    <Comment key={item.id} title={item.title} text={item.text} author={item.author} />
-                  </div>
-                )
-              })}</> : <>Пусто</>
+              commentLoading && <BulletList />}
+            {comments[0] ? <>{comments.map(item => {
+              return (
+                <Comment key={item.id} title={item.title} text={item.text} author={item.author} />
+              )
+            })}</> : <>Пусто</>
             }
-
             {popup && <CommentPopup popup={popup} setPopup={setPopup} />}
           </div>
         </div>

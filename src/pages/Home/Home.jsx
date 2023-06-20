@@ -10,25 +10,28 @@ const Home = () => {
 
   useEffect(() => {
     fetchProducts(user.id)
-    if (JSON.parse(localStorage.getItem('user'))){
-      fetchUser(user.id) 
+    if (JSON.parse(localStorage.getItem('user'))) {
+      fetchUser(user.id)
     }
-    
   }, [])
 
   return (
     <div className='home'>
       {
-        products.length === 0 && <p style={{margin: '10px'}}>Пусто...</p>
+        products.length === 0 && <p style={{ margin: '10px' }}>Пусто...</p>
       }
       <div className="container">
         <div className='home__content'>
-          {status === 'None' ? <p>Нет таких товаров!</p> : loading ? <>
+          {status === 'None' ? <p>Нет таких товаров!</p> :
+            products.map((item) => (
+              <Card key={item.id} item={item} heart={<BsPlusCircle className='home__add-to-cart' />} />
+            ))
+          }
+          {
+            loading &&
+            <>
               <CardLoading />
-            </> :
-              products.map((item) => (
-                <Card key={item.id} item={item} heart={<BsPlusCircle className='home__add-to-cart' />} />
-              ))
+            </>
           }
         </div>
       </div>

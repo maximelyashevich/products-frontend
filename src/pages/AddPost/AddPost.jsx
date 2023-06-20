@@ -20,7 +20,6 @@ const AddPost = () => {
 
   const createPost = async (data) => {
     let token = JSON.parse(localStorage.getItem("token"))
-    console.log(token)
     await instance.post("/post", data, {
       headers: {
         "Authorization": `Bearer ${token}`
@@ -32,7 +31,7 @@ const AddPost = () => {
 
   const submitForm = (data) => {
     createPost(data)
-    reset
+    reset()
     navigate("/profile/my-posts")
   }
 

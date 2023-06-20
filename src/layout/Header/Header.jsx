@@ -81,7 +81,7 @@ const Header = () => {
           {
             location.pathname === '/' && <div className="container">
               <div className="header__bottom-search">
-                <input onChange={debounceSearch} placeholder='Я ищу...' type="text" className='header__bottom-input' />
+                <input defaultValue={''} onChange={debounceSearch} placeholder='Я ищу...' type="text" className='header__bottom-input' />
               </div>
               <div className="header__bottom-list">
                 <div className='header__bottom-list__elements'>
